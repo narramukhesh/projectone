@@ -1,0 +1,17 @@
+#pre-commit configuration file for the git hooks
+repos:
+# python formatter, syntax checker hook
+-   repo: https://github.com/psf/black
+    rev: 24.8.0
+    hooks:
+    - id: black
+      language_version: python3.10
+
+
+
+# for checking the commit messages statisfies with prescribed format
+-   repo: https://github.com/commitizen-tools/commitizen
+    rev: v3.29.0
+    hooks:
+      - id: commitizen
+        stages: [commit-msg]
