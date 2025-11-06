@@ -66,7 +66,7 @@ jobs:
           java-version: 8
           cache: sbt
       - uses: sbt/setup-sbt@v1
-      - name: Setting the environment
+      - name: Release
         run: |
             eval $(ssh-agent -s)
             echo "${{ secrets.SEM_REL_PRIVATE }}" | ssh-add -
@@ -77,12 +77,8 @@ jobs:
             git pull origin ${{ github.ref_name }}
             git config --local user.name "sbt-release-projectone"
             git config --local user.email "sbt-release-projectone@gmail.com"
-      - name: Change the directory
-        run: cd connectors/spark/scala/odata
-      - name: Release
-        run: |
-          cd connectors/spark/scala/odata
-          sbt "release with-defaults"
+            cd connectors/spark/scala/odata
+            sbt "release with-defaults"
         env:
           PGP_PASSPHRASE: ${{ secrets.PGP_PASSPHRASE }}
           PGP_SECRET: ${{ secrets.PGP_PRIVATEKEY }}
