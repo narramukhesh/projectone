@@ -44,11 +44,7 @@ releaseVersionFile := file("version.sbt")
 releaseCrossBuild := true  // Enable cross-building during the release process
 releaseVersionBump := sbtrelease.Version.Bump.NextStable
 
-ThisBuild / publishTo := {
-  val centralSnapshots = "https://central.sonatype.com/repository/maven-snapshots/"
-  if (isSnapshot.value) Some("central-snapshots" at centralSnapshots)
-  else localStaging.value
-}
+ThisBuild / publishTo := sonatypePublishToBundle.value
 
 ThisBuild / versionScheme := Some("semver-spec")
 releaseTagComment        := s"chore: (connectors)(spark)(odata) Releasing ${(ThisBuild / version).value} using sbt-release"
