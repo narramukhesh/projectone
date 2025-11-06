@@ -3,6 +3,7 @@ import sbtrelease.ReleaseStateTransformations._
 import sbtrelease.ReleasePlugin
 import sbt._
 import sbt.Keys._
+import xerial.sbt.Sonatype.sonatypeCentralHost
 
 enablePlugins(ReleasePlugin)
 
@@ -44,7 +45,10 @@ releaseVersionFile := file("version.sbt")
 releaseCrossBuild := true  // Enable cross-building during the release process
 releaseVersionBump := sbtrelease.Version.Bump.NextStable
 
+
+ThisBuild / sonatypeCredentialHost := sonatypeCentralHost
 ThisBuild / publishTo := sonatypePublishToBundle.value
+sbtPluginPublishLegacyMavenStyle := false
 
 ThisBuild / versionScheme := Some("semver-spec")
 releaseTagComment        := s"chore: (connectors)(spark)(odata) Releasing ${(ThisBuild / version).value} using sbt-release"
