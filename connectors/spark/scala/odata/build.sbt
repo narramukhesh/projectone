@@ -4,7 +4,7 @@ import sbtrelease.ReleasePlugin
 import sbt._
 import sbt.Keys._
 
-//enablePlugins(ReleasePlugin)
+enablePlugins(ReleasePlugin)
 
 val scala_2_12 = "2.12.18"
 val scala_2_13 = "2.13.12"
