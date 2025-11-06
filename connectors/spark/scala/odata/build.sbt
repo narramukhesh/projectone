@@ -70,9 +70,9 @@ releaseProcess := Seq[ReleaseStep](
   commitReleaseVersion,        // Commit version changes
   tagRelease,                  // Tag the release
   releaseStepCommandAndRemaining("+publishSigned"), // publish the signed artifacts to the sonatype staging repository
+  releaseStepCommand("sonatypeBundleRelease"), // release to the central 
   setNextVersion,             // set next version by the release process
   commitNextVersion,        // Commit version changes
-  releaseStepCommand("sonatypeBundleRelease"), // release to the central 
   pushChanges                  // Push changes to version control
 )
 
