@@ -4,7 +4,7 @@ import sbtrelease.ReleasePlugin
 import sbt._
 import sbt.Keys._
 
-//enablePlugins(ReleasePlugin)
+enablePlugins(ReleasePlugin)
 
 val scala_2_12 = "2.12.18"
 val scala_2_13 = "2.13.12"
@@ -44,6 +44,8 @@ releaseVersionFile := file("version.sbt")
 releaseCrossBuild := true  // Enable cross-building during the release process
 releaseVersionBump := sbtrelease.Version.Bump.NextStable
 
+ThisBuild / publishTo := sonatypePublishToBundle.value
+
 ThisBuild / versionScheme := Some("semver-spec")
 releaseTagComment        := s"chore: (connectors)(spark)(odata) Releasing ${(ThisBuild / version).value} using sbt-release"
 releaseCommitMessage     := s"chore: (connectors)(spark)(odata) Setting version to ${(ThisBuild / version).value} using sbt-release"
@@ -64,7 +66,6 @@ releaseProcess := Seq[ReleaseStep](
   commitReleaseVersion,        // Commit version changes
   tagRelease,                  // Tag the release
   releaseStepCommandAndRemaining("+publishSigned"), // publish the signed artifacts to the sonatype staging repository
-  publishArtifacts,            // Publish artifacts
   setNextVersion,             // set next version by the release process
   commitNextVersion,        // Commit version changes
   releaseStepCommand("sonatypeBundleRelease"), // release to the central 
