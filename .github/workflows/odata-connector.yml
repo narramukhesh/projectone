@@ -77,6 +77,8 @@ jobs:
             git pull origin ${{ github.ref_name }}
             git config --local user.name "sbt-release-projectone"
             git config --local user.email "sbt-release-projectone@gmail.com"
+            gpg --version
+            echo $PGP_SECRET| base64 --decode| gpg --batch --import
             cd connectors/spark/scala/odata
             sbt "release with-defaults"
         env:
