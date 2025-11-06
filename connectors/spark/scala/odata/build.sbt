@@ -45,9 +45,9 @@ releaseCrossBuild := true  // Enable cross-building during the release process
 releaseVersionBump := sbtrelease.Version.Bump.NextStable
 
 ThisBuild / versionScheme := Some("semver-spec")
-releaseTagComment        := s"chore: (connectors)(scala)(odata) Releasing ${(ThisBuild / version).value} using sbt-release"
-releaseCommitMessage     := s"chore: (connectors)(scala)(odata) Setting version to ${(ThisBuild / version).value} using sbt-release"
-releaseNextCommitMessage := s"chore: (connectors)(scala)(odata) Setting version to ${(ThisBuild / version).value} using sbt-release"
+releaseTagComment        := s"chore: (connectors)(spark)(odata) Releasing ${(ThisBuild / version).value} using sbt-release"
+releaseCommitMessage     := s"chore: (connectors)(spark)(odata) Setting version to ${(ThisBuild / version).value} using sbt-release"
+releaseNextCommitMessage := s"chore: (connectors)(spark)(odata) Setting version to ${(ThisBuild / version).value} using sbt-release"
 
 releaseNextVersion := (releaseVersion => releaseVersion.split("\\.") match {
   case Array(major, minor, bugfix) =>
