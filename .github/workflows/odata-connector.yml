@@ -30,7 +30,7 @@ jobs:
       - name: Run the unit test
         run: |
           cd connectors/spark/scala/odata
-          sbt "++ ${{ matrix.SCALA_VERSION }} test:testOnly com.exinity.spark.creatio.test.unit_testing.*"
+          sbt "++ ${{ matrix.SCALA_VERSION }} test:testOnly io.github.narramukhesh.projectone.spark.odata.test.unit_testing.*"
   
   integration_test:
     runs-on: ubuntu-latest
@@ -52,7 +52,7 @@ jobs:
       - name: Run the integration test
         run: |
           cd connectors/spark/scala/odata
-          sbt "++ ${{ matrix.SCALA_VERSION }} test:testOnly com.exinity.spark.creatio.test.integration_testing.*"
+          sbt "++ ${{ matrix.SCALA_VERSION }} test:testOnly io.github.narramukhesh.projectone.spark.odata.test.integration_testing.*"
   
   release:
     runs-on: ubuntu-latest
