@@ -27,7 +27,9 @@ jobs:
       - name: change the directory
         run: cd connectors/spark/scala/odata
       - name: Run the unit test
-        run: sbt "++ ${{ matrix.SCALA_VERSION }} test:testOnly com.exinity.spark.creatio.test.unit_testing.*"
+        run: |
+          cd connectors/spark/scala/odata
+          sbt "++ ${{ matrix.SCALA_VERSION }} test:testOnly com.exinity.spark.creatio.test.unit_testing.*"
   
   integration_test:
     runs-on: ubuntu-latest
@@ -46,7 +48,9 @@ jobs:
       - name: change the directory
         run: cd connectors/spark/scala/odata
       - name: Run the integration test
-        run: sbt "++ ${{ matrix.SCALA_VERSION }} test:testOnly com.exinity.spark.creatio.test.integration_testing.*"
+        run: |
+          cd connectors/spark/scala/odata
+          sbt "++ ${{ matrix.SCALA_VERSION }} test:testOnly com.exinity.spark.creatio.test.integration_testing.*"
   
   release:
     runs-on: ubuntu-latest
@@ -72,7 +76,9 @@ jobs:
       - name: Change the directory
         run: cd connectors/spark/scala/odata
       - name: Release
-        run: sbt "release with-defaults"
+        run: |
+          cd connectors/spark/scala/odata
+          sbt "release with-defaults"
         env:
           PGP_PASSPHRASE: ${{ secrets.PGP_PASSPHRASE }}
           PGP_SECRET: ${{ secrets.PGP_PRIVATEKEY }}
