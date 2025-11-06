@@ -1,0 +1,81 @@
+
+name: odata-connector
+on:
+  push:
+    branches: [ "main" ]
+    paths:
+        - connectors/spark/scala/odata/*
+  pull_request:
+    types: ["opened"]
+    branches: [ "main" ]
+    paths:
+        - connectors/spark/scala/odata/*
+jobs:
+  unit_test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        SCALA_VERSION: [2.12.18,2.13.13]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v5
+        with:
+          distribution: temurin
+          java-version: 8
+          cache: sbt
+      - uses: sbt/setup-sbt@v1
+      - name: change the directory
+        run: cd connectors/spark/scala/creatio
+      - name: Run the unit test
+        run: sbt "++ ${{ matrix.SCALA_VERSION }} test:testOnly com.exinity.spark.creatio.test.unit_testing.*"
+  
+  integration_test:
+    runs-on: ubuntu-latest
+    if: (!startsWith(github.event.head_commit.committer.name, 'sbt-release-projectone'))
+    strategy:
+      matrix:
+        SCALA_VERSION: [2.12.18,2.13.13]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v5
+        with:
+          distribution: temurin
+          java-version: 8
+          cache: sbt
+      - uses: sbt/setup-sbt@v1
+      - name: change the directory
+        run: cd connectors/spark/scala/creatio
+      - name: Run the integration test
+        run: sbt "++ ${{ matrix.SCALA_VERSION }} test:testOnly com.exinity.spark.creatio.test.integration_testing.*"
+  
+  release:
+    runs-on: ubuntu-latest
+    if: (!startsWith(github.event.head_commit.committer.name, 'sbt-release-projectone')) && contains( github.ref, 'main')
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v5
+        with:
+          distribution: temurin
+          java-version: 8
+          cache: sbt
+      - uses: sbt/setup-sbt@v1
+      - name: Setting the environment
+        run: |
+            echo "${{ secrets.SEM_REL_PRIVATE }}" | ssh-add -
+            mkdir -m 700 $HOME/.ssh
+            git reset --hard
+            git clean -fd
+            git checkout ${{ github.ref_name }}
+            git pull origin ${{ github.ref_name }}
+            git config --local user.name "sbt-release-projectone"
+            git config --local user.email "sbt-release-projectone@gmail.com"
+      - name: Change the directory
+        run: cd connectors/spark/scala/creatio
+      - name: Release
+        run: sbt "release with-defaults"
+        env:
+          PGP_PASSPHRASE: ${{ secrets.PGP_PASSPHRASE }}
+          PGP_SECRET: ${{ secrets.PGP_PRIVATEKEY }}
+          SONATYPE_PASSWORD: ${{ secrets.SONA_TYPE_PASS }}
+          SONATYPE_USERNAME: ${{ secrets.SONA_TYPE_USERNAME }}
+
