@@ -25,7 +25,7 @@ jobs:
           cache: sbt
       - uses: sbt/setup-sbt@v1
       - name: change the directory
-        run: cd connectors/spark/scala/creatio
+        run: cd connectors/spark/scala/odata
       - name: Run the unit test
         run: sbt "++ ${{ matrix.SCALA_VERSION }} test:testOnly com.exinity.spark.creatio.test.unit_testing.*"
   
@@ -44,7 +44,7 @@ jobs:
           cache: sbt
       - uses: sbt/setup-sbt@v1
       - name: change the directory
-        run: cd connectors/spark/scala/creatio
+        run: cd connectors/spark/scala/odata
       - name: Run the integration test
         run: sbt "++ ${{ matrix.SCALA_VERSION }} test:testOnly com.exinity.spark.creatio.test.integration_testing.*"
   
@@ -70,7 +70,7 @@ jobs:
             git config --local user.name "sbt-release-projectone"
             git config --local user.email "sbt-release-projectone@gmail.com"
       - name: Change the directory
-        run: cd connectors/spark/scala/creatio
+        run: cd connectors/spark/scala/odata
       - name: Release
         run: sbt "release with-defaults"
         env:
