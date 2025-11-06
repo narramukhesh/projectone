@@ -80,7 +80,7 @@ jobs:
             gpg --version
             echo "$PGP_SECRET"| base64 --decode| gpg --batch --import
             cd connectors/spark/scala/odata
-            sbt "release with-defaults"
+            sbt "-Dsun.net.client.defaultReadTimeout=60000 -v release with-defaults"
         env:
           PGP_PASSPHRASE: ${{ secrets.PGP_PASSPHARSE }}
           PGP_SECRET: ${{ secrets.PGP_PRIVATEKEY }}
