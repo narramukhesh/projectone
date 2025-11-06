@@ -82,14 +82,14 @@ class PipelineTaskTypes(ParentEnum):
 
     spark_task = "spark_task"
     spark_pipeline_task = "spark_pipeline_task"
-    confluent_connector_task = "confluent_connector_task"
+    kafka_connector_task = "kafka_connector_task"
 
 
 class PipelineTypes(ParentEnum):
     """This class is a schema definition for possible values Pipeline types"""
 
     spark = "spark"
-    confluent = "confluent"
+    kafka = "kafka"
 
 
 class SparkTaskLibraries(ParentModel):
@@ -110,7 +110,6 @@ class SparkTaskLibraries(ParentModel):
         return (
             (self.type == "pypi")
             and (self.package == "oneflow")
-            and (self.repository == core.PROJECT_PACKAGE_URL)
         )
 
     @model_validator(mode="after")
