@@ -82,7 +82,7 @@ jobs:
             cd connectors/spark/scala/odata
             sbt "release with-defaults"
         env:
-          PGP_PASSPHRASE: ${{ secrets.PGP_PASSPHRASE }}
+          PGP_PASSPHRASE: ${{ secrets.PGP_PASSPHARSE }}
           PGP_SECRET: ${{ secrets.PGP_PRIVATEKEY }}
           SONATYPE_PASSWORD: ${{ secrets.SONA_TYPE_PASS }}
           SONATYPE_USERNAME: ${{ secrets.SONA_TYPE_USERNAME }}
