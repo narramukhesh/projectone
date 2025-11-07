@@ -373,7 +373,7 @@ class OneFlowFrameworkCli:
         """This command executes the validates command"""
         select_object = SelectObject()
         environment = Environment()
-        environment.DF_CURRENT_ENV = args.environment
+        environment.OF_CURRENT_ENV = args.environment
 
         if (args.select is not None) and len(args.select) > 0:
             for s in args.select:
@@ -435,8 +435,8 @@ class OneFlowFrameworkCli:
     def execute_deploy_command(args):
         """This command executes the deploy command"""
         environment = Environment()
-        environment.DF_MODE = EnvironmentMode.deploy
-        environment.DF_CURRENT_ENV = args.environment
+        environment.OF_MODE = EnvironmentMode.deploy
+        environment.OF_CURRENT_ENV = args.environment
         if args.environment == EnvTypes.local.value:
             exception = CliOutput(
                 type=CliOutTypes.exception,
@@ -451,7 +451,7 @@ class OneFlowFrameworkCli:
             tempfile.gettempdir(), ".oneflow", "terraform.tfstate"
         )
         deploy_backend_config = None
-        backend_config = environment.DF_TF_BACKEND_CONFIG
+        backend_config = environment.OF_TF_BACKEND_CONFIG
         if args.backend_config is not None:
             for c in args.backend_config:
                 config = c.split("=", 1)
@@ -479,7 +479,7 @@ class OneFlowFrameworkCli:
 
         backend_local_config = {
             "type": "local",
-            "path": environment.DF_MODE_DEPLOY_TEMP_LOCAL_STATE_FILE,
+            "path": environment.OF_MODE_DEPLOY_TEMP_LOCAL_STATE_FILE,
         }
         deploy_local_backend_config = InfraStateBackendConfig(
             type=backend_local_config["type"],
@@ -621,7 +621,7 @@ class OneFlowFrameworkCli:
                 console.print("[bold]Applying changes stage completed...[/bold]")
 
             ### cleaning up the temporary state file
-            delete_file_if_exists(environment.DF_MODE_DEPLOY_TEMP_LOCAL_STATE_FILE)
+            delete_file_if_exists(environment.OF_MODE_DEPLOY_TEMP_LOCAL_STATE_FILE)
             ###
             if not args.plan:
                 console.print("[bold][green]Deployment Completed...[/bold][/green]")
@@ -640,8 +640,8 @@ class OneFlowFrameworkCli:
         """This command executes the destroy command"""
 
         environment = Environment()
-        environment.DF_MODE = EnvironmentMode.deploy
-        environment.DF_CURRENT_ENV = args.environment
+        environment.OF_MODE = EnvironmentMode.deploy
+        environment.OF_CURRENT_ENV = args.environment
         if args.environment == EnvTypes.local.value:
             exception = CliOutput(
                 type=CliOutTypes.exception,
@@ -656,7 +656,7 @@ class OneFlowFrameworkCli:
             tempfile.gettempdir(), ".oneflow", "terraform.tfstate"
         )
         deploy_backend_config = None
-        backend_config = environment.DF_TF_BACKEND_CONFIG
+        backend_config = environment.OF_TF_BACKEND_CONFIG
         if args.backend_config is not None:
             for c in args.backend_config:
                 config = c.split("=", 1)
@@ -684,7 +684,7 @@ class OneFlowFrameworkCli:
 
         backend_local_config = {
             "type": "local",
-            "path": environment.DF_MODE_DEPLOY_TEMP_LOCAL_STATE_FILE,
+            "path": environment.OF_MODE_DEPLOY_TEMP_LOCAL_STATE_FILE,
         }
         deploy_local_backend_config = InfraStateBackendConfig(
             type=backend_local_config["type"],
@@ -835,7 +835,7 @@ class OneFlowFrameworkCli:
                 console.print("[bold]Applying changes stage completed...[/bold]")
 
             ### cleaning up the temporary state file
-            delete_file_if_exists(environment.DF_MODE_DEPLOY_TEMP_LOCAL_STATE_FILE)
+            delete_file_if_exists(environment.OF_MODE_DEPLOY_TEMP_LOCAL_STATE_FILE)
             ###
             if not args.plan:
                 console.print(
@@ -885,17 +885,17 @@ class OneFlowFrameworkCli:
             configuration={k: v for k, v in backend_config.items() if k != "type"},
         )
 
-        environment.DF_PRESETTING_NAME_PREFIX = (
+        environment.OF_PRESETTING_NAME_PREFIX = (
             f"[{args.environment} oneflow_run:{run_id}]"
         )
-        environment.DF_PRESETTING_TAGS = {"TEST_RUN": "true"}
-        environment.DF_MODE_RUN_PIPELINE_STATE_PREFIX = (
+        environment.OF_PRESETTING_TAGS = {"TEST_RUN": "true"}
+        environment.OF_MODE_RUN_PIPELINE_STATE_PREFIX = (
             f"{tempfile.gettempdir()}/{run_id}"
         )
-        environment.DF_MODE = EnvironmentMode.run
-        environment.DF_MODE_RUN_PIPELINE_ID = run_id
-        environment.DF_CURRENT_ENV = args.environment
-        environment.DF_MODE_RUN_PIPELINE_CLUSTER_ID = args.cluster_id
+        environment.OF_MODE = EnvironmentMode.run
+        environment.OF_MODE_RUN_PIPELINE_ID = run_id
+        environment.OF_CURRENT_ENV = args.environment
+        environment.OF_MODE_RUN_PIPELINE_CLUSTER_ID = args.cluster_id
 
         contract_class = Contract.get_contract(ContractType(args.contract_type))
 

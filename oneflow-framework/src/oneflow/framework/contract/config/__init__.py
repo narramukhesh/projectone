@@ -66,27 +66,27 @@ class DatabricksServerDetails(ParentModel):
     """This is the databricks server details schema definition"""
 
     workspace_url: str = Field(
-        environment.DF_TF_DATABRICKS_WORKSPACE,
+        environment.OF_TF_DATABRICKS_WORKSPACE,
         description="workspace url to which resources to be deployed",
     )
     client_id: Optional[str] = Field(
-        environment.DF_TF_DATABRICKS_CLIENT_ID,
+        environment.OF_TF_DATABRICKS_CLIENT_ID,
         description="client id for the databricks autentication",
     )
     client_secret: Optional[str] = Field(
-        environment.DF_TF_DATABRICKS_CLIENT_SECRET,
+        environment.OF_TF_DATABRICKS_CLIENT_SECRET,
         description="client secret for the databricks autentication",
     )
     access_token: Optional[str] = Field(
-        environment.DF_TF_DATABRICKS_ACCESS_TOKEN,
+        environment.OF_TF_DATABRICKS_ACCESS_TOKEN,
         description="access token for the databricks autentication",
     )
     catalog: Optional[str] = Field(
-        environment.DF_TF_DATABRICKS_CATALOG,
+        environment.OF_TF_DATABRICKS_CATALOG,
         description="catalog to be used to be deployed in target databricks environment",
     )
     artifact_deploy_path: Optional[str] = Field(
-        environment.DF_DATABRICKS_ARTIFACTS_PATH,
+        environment.OF_DATABRICKS_ARTIFACTS_PATH,
         description="The source artifacts deployment path where source files like execution, transform function are deployed",
     )
     pipeline_state_deploy_schema: Optional[str] = Field(

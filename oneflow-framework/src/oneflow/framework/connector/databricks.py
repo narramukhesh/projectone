@@ -23,22 +23,22 @@ class DatabricksConnector(Connector):
         access_token = (
             server_details.access_token
             if server_details is not None and server_details.access_token is not None
-            else Environment().DF_TF_DATABRICKS_ACCESS_TOKEN
+            else Environment().OF_TF_DATABRICKS_ACCESS_TOKEN
         )
         client_secret = (
             server_details.client_secret
             if server_details is not None and server_details.client_secret is not None
-            else Environment().DF_TF_DATABRICKS_CLIENT_SECRET
+            else Environment().OF_TF_DATABRICKS_CLIENT_SECRET
         )
         client_id = (
             server_details.client_id
             if server_details is not None and server_details.client_id is not None
-            else Environment().DF_TF_DATABRICKS_CLIENT_ID
+            else Environment().OF_TF_DATABRICKS_CLIENT_ID
         )
         host = (
             server_details.workspace_url
             if server_details is not None and server_details.workspace_url is not None
-            else Environment().DF_TF_DATABRICKS_WORKSPACE
+            else Environment().OF_TF_DATABRICKS_WORKSPACE
         )
 
         if (

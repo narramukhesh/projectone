@@ -241,7 +241,7 @@ include_package_data=True,
         from oneflow.framework.contract.strategy.deploy import TerraformDeployStrategy
 
         if (self.environment != EnvTypes.local) and (
-            Environment().DF_DEPLOY_STRATEGY == DeployStrategyTypes.terraform
+            Environment().OF_DEPLOY_STRATEGY == DeployStrategyTypes.terraform
         ):
             deploy_strategy = TerraformDeployStrategy(self)
             return deploy_strategy

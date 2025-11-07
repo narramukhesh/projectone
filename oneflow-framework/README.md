@@ -114,37 +114,37 @@ As this framework, primary interface is command line interface. Where execution 
 
 Below are the list of the global environment variables:
 
-**DF_TF_DATABRICKS_CLIENT_ID:** Terraform deployment databricks client id for autentication
+**OF_TF_DATABRICKS_CLIENT_ID:** Terraform deployment databricks client id for autentication
 
-**DF_TF_DATABRICKS_CLIENT_SECRET:** Terraform deployment databricks client secret for autentication
+**OF_TF_DATABRICKS_CLIENT_SECRET:** Terraform deployment databricks client secret for autentication
 
-**DF_TF_DATABRICKS_ACCESS_TOKEN:** Terraform deployment databricks access token for autentication
+**OF_TF_DATABRICKS_ACCESS_TOKEN:** Terraform deployment databricks access token for autentication
 
-**DF_TF_DATABRICKS_WORKSPACE:** Terraform deployment databricks workspace url where resource are deployed
+**OF_TF_DATABRICKS_WORKSPACE:** Terraform deployment databricks workspace url where resource are deployed
 
-**DF_TF_DATABRICKS_DEPLOY_CLUSTER_ID:** Databricks cluster where running the pipeline cluster replace the provided cluster id
+**OF_TF_DATABRICKS_DEPLOY_CLUSTER_ID:** Databricks cluster where running the pipeline cluster replace the provided cluster id
 
-**DF_TF_BACKEND_CONFIG:** Terraform backend configuration specified in json configuration
+**OF_TF_BACKEND_CONFIG:** Terraform backend configuration specified in json configuration
 
-**DF_TF_DATABRICKS_CATALOG:** Databricks catalog where all dataset objects are deployed
+**OF_TF_DATABRICKS_CATALOG:** Databricks catalog where all dataset objects are deployed
 
-**DF_DATABRICKS_ARTIFACTS_PATH:** Databricks artifacts path where project pacakge 
+**OF_DATABRICKS_ARTIFACTS_PATH:** Databricks artifacts path where project pacakge 
 stored
 
-**DF_PRESETTING_NAME_PREFIX:** Contract pre-setting name prefix, if specified all resources are prefixed by this setting
+**OF_PRESETTING_NAME_PREFIX:** Contract pre-setting name prefix, if specified all resources are prefixed by this setting
 
-**DF_PRESETTING_NAME_SUFFIX:** Contract pre-setting name prefix, if specified all resources are prefixed by this setting
+**OF_PRESETTING_NAME_SUFFIX:** Contract pre-setting name prefix, if specified all resources are prefixed by this setting
 
-**DF_PIPELINE_TAGS:** Contract pre-setting pipeline tags, if specified tags added to pipeline resources
+**OF_PIPELINE_TAGS:** Contract pre-setting pipeline tags, if specified tags added to pipeline resources
 
-**DF_PIPELINE_TASK_CHECKPOINT_LOCATION_PREFIX:** For stream pipeline processing require checkpoint location, this setting provide prefix to the checkpoint location of all tasks
+**OF_PIPELINE_TASK_CHECKPOINT_LOCATION_PREFIX:** For stream pipeline processing require checkpoint location, this setting provide prefix to the checkpoint location of all tasks
 
-**DF_PIPELINE_METADATA_LOCATION:** Metadata location where pipeline state are stored
+**OF_PIPELINE_METADATA_LOCATION:** Metadata location where pipeline state are stored
 
-**DF_PRESETTING_TAGS:** Contract pre-setting tags in json form, if specified all resources are specified with these tags by this setting
+**OF_PRESETTING_TAGS:** Contract pre-setting tags in json form, if specified all resources are specified with these tags by this setting
 
-**DF_DATABRICKS_SECRET_SCOPE:** Secret scope environment variable used to specify for the environment specific databricks secret scope
+**OF_DATABRICKS_SECRET_SCOPE:** Secret scope environment variable used to specify for the environment specific databricks secret scope
 
-**DF_DEPLOY_CORE_PACKAGE_PATH:** This is used to specify the library/path where oneflow-framework uses to run the pipeline, by default oneflow is taken but if you want untested version of oneflow, you can specify it here.
+**OF_DEPLOY_CORE_PACKAGE_PATH:** This is used to specify the library/path where oneflow-framework uses to run the pipeline, by default oneflow is taken but if you want untested version of oneflow, you can specify it here.
 
-**DF_DEPLOY_CORE_PACKAGE_TYPE:** Type to be specified by default this should be specified with `whl`, if you specify the `DF_DEPLOY_CORE_PACKAGE_PATH` and this variable also need to defined
+**OF_DEPLOY_CORE_PACKAGE_TYPE:** Type to be specified by default this should be specified with `whl`, if you specify the `OF_DEPLOY_CORE_PACKAGE_PATH` and this variable also need to defined

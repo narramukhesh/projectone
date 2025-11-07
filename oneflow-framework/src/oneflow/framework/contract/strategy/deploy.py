@@ -425,7 +425,7 @@ class TerraformDeployStrategy(DeployStrategy):
                 elif (select_targets is not None) and (len(select_targets) > 0):
                     targets = select_targets
 
-                elif environment.DF_MODE == EnvironmentMode.run:
+                elif environment.OF_MODE == EnvironmentMode.run:
                     targets = select_targets
 
             elif destroy:
@@ -461,7 +461,7 @@ class TerraformDeployStrategy(DeployStrategy):
             ###
             # state pull from remote/local state to local path
 
-            if environment.DF_MODE == EnvironmentMode.deploy:
+            if environment.OF_MODE == EnvironmentMode.deploy:
                 state_output = TerraformState.pull_state_to_local(
                     backend_config, local_state_file_location
                 )
@@ -473,7 +473,7 @@ class TerraformDeployStrategy(DeployStrategy):
 
             if ret_code != 0:
                 err = initialization_err
-                if environment.DF_MODE == EnvironmentMode.deploy and (
+                if environment.OF_MODE == EnvironmentMode.deploy and (
                     state_output is not None
                 ):
                     TerraformState.clear_lock(state_output)
@@ -481,7 +481,7 @@ class TerraformDeployStrategy(DeployStrategy):
             out = DeployInitOutput(init_out=init_out, state_out=state_output)
         except Exception as e:
             err = e
-            if environment.DF_MODE == EnvironmentMode.deploy and (
+            if environment.OF_MODE == EnvironmentMode.deploy and (
                 state_output is not None
             ):
                 TerraformState.clear_lock(state_output)
@@ -526,7 +526,7 @@ class TerraformDeployStrategy(DeployStrategy):
             )
 
             if ret_code != 0:
-                if environment.DF_MODE == EnvironmentMode.deploy and (
+                if environment.OF_MODE == EnvironmentMode.deploy and (
                     state_result is not None
                 ):
                     TerraformState.clear_lock(state_result)
@@ -536,7 +536,7 @@ class TerraformDeployStrategy(DeployStrategy):
                 deploy_directory, plan_out_file
             )
             if ret_code != 0:
-                if environment.DF_MODE == EnvironmentMode.deploy and (
+                if environment.OF_MODE == EnvironmentMode.deploy and (
                     state_result is not None
                 ):
                     TerraformState.clear_lock(state_result)
@@ -544,16 +544,16 @@ class TerraformDeployStrategy(DeployStrategy):
             plan_json_out = json.loads(plan_out)
 
             if (
-                environment.DF_MODE_DEPLOY_IMPORT_RESOURCES
-                and environment.DF_MODE == EnvironmentMode.deploy
+                environment.OF_MODE_DEPLOY_IMPORT_RESOURCES
+                and environment.OF_MODE == EnvironmentMode.deploy
             ):
                 analyze_out, analyze_err, ret_code = self.analyze_plan_import_changes(
                     deploy_directory,
                     plan_json_out,
-                    environment.DF_MODE_DEPLOY_IMPORT_RESOURCES,
+                    environment.OF_MODE_DEPLOY_IMPORT_RESOURCES,
                 )
                 if ret_code != 0:
-                    if environment.DF_MODE == EnvironmentMode.deploy and (
+                    if environment.OF_MODE == EnvironmentMode.deploy and (
                         state_result is not None
                     ):
                         TerraformState.clear_lock(state_result)
@@ -563,7 +563,7 @@ class TerraformDeployStrategy(DeployStrategy):
                 )
 
                 if ret_code != 0:
-                    if environment.DF_MODE == EnvironmentMode.deploy and (
+                    if environment.OF_MODE == EnvironmentMode.deploy and (
                         state_result is not None
                     ):
                         TerraformState.clear_lock(state_result)
@@ -572,7 +572,7 @@ class TerraformDeployStrategy(DeployStrategy):
                     deploy_directory, plan_out_file
                 )
                 if ret_code != 0:
-                    if environment.DF_MODE == EnvironmentMode.deploy and (
+                    if environment.OF_MODE == EnvironmentMode.deploy and (
                         state_result is not None
                     ):
                         TerraformState.clear_lock(state_result)
@@ -585,7 +585,7 @@ class TerraformDeployStrategy(DeployStrategy):
             out = DeployPlanOutput(plan_file=plan_out_file, plan_json=plan_json_out)
 
         except Exception as e:
-            if environment.DF_MODE == EnvironmentMode.deploy and (
+            if environment.OF_MODE == EnvironmentMode.deploy and (
                 state_result is not None
             ):
                 TerraformState.clear_lock(state_result)
@@ -704,7 +704,7 @@ class TerraformDeployStrategy(DeployStrategy):
                 destroy=destroy,
             )
             if ret_code != 0:
-                if environment.DF_MODE == EnvironmentMode.deploy and (
+                if environment.OF_MODE == EnvironmentMode.deploy and (
                     state_result is not None
                 ):
                     TerraformState.clear_lock(state_result)
@@ -714,7 +714,7 @@ class TerraformDeployStrategy(DeployStrategy):
                 deploy_directory, target=targets
             )
             if ret_code != 0:
-                if environment.DF_MODE == EnvironmentMode.deploy and (
+                if environment.OF_MODE == EnvironmentMode.deploy and (
                     state_result is not None
                 ):
                     TerraformState.clear_lock(state_result)
@@ -726,7 +726,7 @@ class TerraformDeployStrategy(DeployStrategy):
             TerraformState.push_state_local_to_remote(state_result=state_result)
             ###
         except Exception as e:
-            if environment.DF_MODE == EnvironmentMode.deploy and (
+            if environment.OF_MODE == EnvironmentMode.deploy and (
                 state_result is not None
             ):
                 TerraformState.clear_lock(state_result)
@@ -815,12 +815,12 @@ class TerraformDeployStrategy(DeployStrategy):
             artifact_package = None
             execution_package = None
             pipeline_state_path = (
-                environment.DF_MODE_RUN_PIPELINE_STATE_PREFIX
-                if is_windows_path(environment.DF_MODE_RUN_PIPELINE_STATE_PREFIX)
+                environment.OF_MODE_RUN_PIPELINE_STATE_PREFIX
+                if is_windows_path(environment.OF_MODE_RUN_PIPELINE_STATE_PREFIX)
                 else "/tmp/"
             )
 
-            if environment.DF_MODE != EnvironmentMode.run:
+            if environment.OF_MODE != EnvironmentMode.run:
                 project_state_schema = SchemaDeployConfig(
                     name=(
                         f"{self.contract.project_name}_{self.contract.environment.value}_state"
@@ -863,8 +863,8 @@ class TerraformDeployStrategy(DeployStrategy):
                     + self.contract.environment.value
                     + (
                         "/"
-                        if environment.DF_MODE_RUN_PIPELINE_ID is None
-                        else f"/{environment.DF_MODE_RUN_PIPELINE_ID}/"
+                        if environment.OF_MODE_RUN_PIPELINE_ID is None
+                        else f"/{environment.OF_MODE_RUN_PIPELINE_ID}/"
                     )
                     + self.contract.project_name
                     + "/"
@@ -882,9 +882,9 @@ class TerraformDeployStrategy(DeployStrategy):
                     type="whl", package=f"/Workspace/{target_path}"
                 )
                 execution_package = SparkTaskLibraries(
-                    type=environment.DF_DEPLOY_CORE_PACKAGE_TYPE,
-                    package=environment.DF_DEPLOY_CORE_PACKAGE_PATH,
-                    repository=environment.DF_DEPLOY_CORE_PACKAGE_REPOSITORY,
+                    type=environment.OF_DEPLOY_CORE_PACKAGE_TYPE,
+                    package=environment.OF_DEPLOY_CORE_PACKAGE_PATH,
+                    repository=environment.OF_DEPLOY_CORE_PACKAGE_REPOSITORY,
                 )
 
             for pipeline in pipeline_deploy_assets[PipelineTypes.spark].values():
@@ -893,15 +893,15 @@ class TerraformDeployStrategy(DeployStrategy):
                         i: c for i, c in enumerate(pipeline.clusters.keys())
                     }
                     total_clusters = len(cluster_mapping)
-                    if (environment.DF_MODE == EnvironmentMode.run) and (
-                        environment.DF_MODE_RUN_PIPELINE_CLUSTER_ID is not None
+                    if (environment.OF_MODE == EnvironmentMode.run) and (
+                        environment.OF_MODE_RUN_PIPELINE_CLUSTER_ID is not None
                     ):
                         pipeline.clusters = {}
                     for index, task in enumerate(pipeline.tasks.keys()):
                         if (
                             pipeline.tasks[task].type
                             == PipelineTaskTypes.spark_pipeline_task
-                        ) and environment.DF_MODE == EnvironmentMode.run:
+                        ) and environment.OF_MODE == EnvironmentMode.run:
                             if (pipeline.tasks[task].pipeline_id is None) and (
                                 pipeline.tasks[task].pipeline_name
                                 in pipeline_deploy_assets[PipelineTypes.spark]
@@ -912,11 +912,11 @@ class TerraformDeployStrategy(DeployStrategy):
                                 pipeline.tasks[task].pipeline_name = ref_pipeline_name
                         if pipeline.tasks[task].type == PipelineTaskTypes.spark_task:
                             # assigning the cluster to task when its not assigned and assigning it in sequence
-                            if (environment.DF_MODE == EnvironmentMode.run) and (
-                                environment.DF_MODE_RUN_PIPELINE_CLUSTER_ID is not None
+                            if (environment.OF_MODE == EnvironmentMode.run) and (
+                                environment.OF_MODE_RUN_PIPELINE_CLUSTER_ID is not None
                             ):
                                 pipeline.tasks[task].existing_cluster_id = (
-                                    environment.DF_MODE_RUN_PIPELINE_CLUSTER_ID
+                                    environment.OF_MODE_RUN_PIPELINE_CLUSTER_ID
                                 )
                             elif pipeline.tasks[task].cluster is None:
                                 current_cluster = cluster_mapping[
@@ -1249,25 +1249,25 @@ class TerraformDeployStrategy(DeployStrategy):
         os.environ["TF_VAR_databricks_token"] = (
             databricks_credentials.access_token
             if databricks_credentials.access_token is not None
-            else environment.DF_TF_DATABRICKS_ACCESS_TOKEN
+            else environment.OF_TF_DATABRICKS_ACCESS_TOKEN
         )
         os.environ["TF_VAR_databricks_client_id"] = (
             databricks_credentials.client_id
             if databricks_credentials.client_id is not None
-            else environment.DF_TF_DATABRICKS_CLIENT_ID
+            else environment.OF_TF_DATABRICKS_CLIENT_ID
         )
         os.environ["TF_VAR_databricks_client_secret"] = (
             databricks_credentials.client_secret
             if databricks_credentials.client_secret is not None
-            else environment.DF_TF_DATABRICKS_CLIENT_SECRET
+            else environment.OF_TF_DATABRICKS_CLIENT_SECRET
         )
         os.environ["TF_VAR_databricks_host"] = (
             databricks_credentials.workspace_url
             if databricks_credentials.workspace_url is not None
-            else environment.DF_TF_DATABRICKS_WORKSPACE
+            else environment.OF_TF_DATABRICKS_WORKSPACE
         )
         os.environ["TF_VAR_databricks_catalog"] = (
             databricks_credentials.catalog
             if databricks_credentials.catalog is not None
-            else environment.DF_TF_DATABRICKS_CATALOG
+            else environment.OF_TF_DATABRICKS_CATALOG
         )

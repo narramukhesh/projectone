@@ -62,84 +62,84 @@ class Environment(metaclass=Singleton):
 
     def __init__(self):
         try:
-            self.DF_TF_DATABRICKS_CLIENT_ID = os.environ.get(
-                "DF_TF_DATABRICKS_CLIENT_ID", ""
+            self.OF_TF_DATABRICKS_CLIENT_ID = os.environ.get(
+                "OF_TF_DATABRICKS_CLIENT_ID", ""
             )
-            self.DF_TF_DATABRICKS_CLIENT_SECRET = os.environ.get(
-                "DF_TF_DATABRICKS_CLIENT_SECRET", ""
+            self.OF_TF_DATABRICKS_CLIENT_SECRET = os.environ.get(
+                "OF_TF_DATABRICKS_CLIENT_SECRET", ""
             )
-            self.DF_TF_DATABRICKS_ACCESS_TOKEN = os.environ.get(
-                "DF_TF_DATABRICKS_ACCESS_TOKEN", ""
+            self.OF_TF_DATABRICKS_ACCESS_TOKEN = os.environ.get(
+                "OF_TF_DATABRICKS_ACCESS_TOKEN", ""
             )
-            self.DF_TF_DATABRICKS_WORKSPACE = os.environ.get(
-                "DF_TF_DATABRICKS_WORKSPACE", ""
+            self.OF_TF_DATABRICKS_WORKSPACE = os.environ.get(
+                "OF_TF_DATABRICKS_WORKSPACE", ""
             )
-            self.DF_TF_DATABRICKS_DEPLOY_CLUSTER_ID = os.environ.get(
-                "DF_TF_DATABRICKS_DEPLOY_CLUSTER_ID", None
+            self.OF_TF_DATABRICKS_DEPLOY_CLUSTER_ID = os.environ.get(
+                "OF_TF_DATABRICKS_DEPLOY_CLUSTER_ID", None
             )
-            self.DF_TF_BACKEND_CONFIG = json.loads(
-                os.environ.get("DF_TF_BACKEND_CONFIG", "{}")
+            self.OF_TF_BACKEND_CONFIG = json.loads(
+                os.environ.get("OF_TF_BACKEND_CONFIG", "{}")
             )
-            self.DF_CURRENT_ENV = os.environ.get("DF_CURRENT_ENV", EnvTypes.local.value)
-            self.DF_TF_DATABRICKS_CATALOG = os.environ.get(
-                "DF_TF_DATABRICKS_CATALOG", ""
+            self.OF_CURRENT_ENV = os.environ.get("OF_CURRENT_ENV", EnvTypes.local.value)
+            self.OF_TF_DATABRICKS_CATALOG = os.environ.get(
+                "OF_TF_DATABRICKS_CATALOG", ""
             )
-            self.DF_DATABRICKS_ARTIFACTS_PATH = os.environ.get(
-                "DF_DATABRICKS_ARTIFACTS_PATH", None
+            self.OF_DATABRICKS_ARTIFACTS_PATH = os.environ.get(
+                "OF_DATABRICKS_ARTIFACTS_PATH", None
             )
-            self.DF_DATABRICKS_SECRET_SCOPE = os.environ.get(
-                "DF_DATABRICKS_SECRET_SCOPE", None
+            self.OF_DATABRICKS_SECRET_SCOPE = os.environ.get(
+                "OF_DATABRICKS_SECRET_SCOPE", None
             )
-            self.DF_PRESETTING_NAME_PREFIX = os.environ.get(
-                "DF_PRESETTING_NAME_PREFIX", None
+            self.OF_PRESETTING_NAME_PREFIX = os.environ.get(
+                "OF_PRESETTING_NAME_PREFIX", None
             )
-            self.DF_PRESETTING_NAME_SUFFIX = os.environ.get(
-                "DF_PRESETTING_NAME_SUFFIX", None
+            self.OF_PRESETTING_NAME_SUFFIX = os.environ.get(
+                "OF_PRESETTING_NAME_SUFFIX", None
             )
-            self.DF_PIPELINE_TAGS = json.loads(os.environ.get("DF_PIPELINE_TAGS", "{}"))
-            self.DF_PIPELINE_TASK_CHECKPOINT_LOCATION_PREFIX = os.environ.get(
-                "DF_PIPELINE_TASK_CHECKPOINT_LOCATION_PREFIX", None
+            self.OF_PIPELINE_TAGS = json.loads(os.environ.get("OF_PIPELINE_TAGS", "{}"))
+            self.OF_PIPELINE_TASK_CHECKPOINT_LOCATION_PREFIX = os.environ.get(
+                "OF_PIPELINE_TASK_CHECKPOINT_LOCATION_PREFIX", None
             )
-            self.DF_PIPELINE_METADATA_LOCATION = os.environ.get(
-                "DF_PIPELINE_METADATA_LOCATION", None
+            self.OF_PIPELINE_METADATA_LOCATION = os.environ.get(
+                "OF_PIPELINE_METADATA_LOCATION", None
             )
-            self.DF_PRESETTING_TAGS = json.loads(
-                os.environ.get("DF_PRESETTING_TAGS", "{}")
+            self.OF_PRESETTING_TAGS = json.loads(
+                os.environ.get("OF_PRESETTING_TAGS", "{}")
             )
-            deploy_strategy = os.environ.get("DF_DEPLOY_STRATEGY", "terraform")
-            self.DF_DEPLOY_STRATEGY = DeployStrategyTypes(
+            deploy_strategy = os.environ.get("OF_DEPLOY_STRATEGY", "terraform")
+            self.OF_DEPLOY_STRATEGY = DeployStrategyTypes(
                 "terraform"
                 if deploy_strategy not in DeployStrategyTypes.to_list()
                 else deploy_strategy
             )
-            self.DF_DEPLOY_CORE_PACKAGE_TYPE = os.environ.get(
-                "DF_DEPLOY_CORE_PACKAGE_TYPE", "pypi"
+            self.OF_DEPLOY_CORE_PACKAGE_TYPE = os.environ.get(
+                "OF_DEPLOY_CORE_PACKAGE_TYPE", "pypi"
             )
-            self.DF_DEPLOY_CORE_PACKAGE_PATH = os.environ.get(
-                "DF_DEPLOY_CORE_PACKAGE_PATH", "oneflow"
+            self.OF_DEPLOY_CORE_PACKAGE_PATH = os.environ.get(
+                "OF_DEPLOY_CORE_PACKAGE_PATH", "oneflow"
             )
-            self.DF_DEPLOY_CORE_PACKAGE_REPOSITORY = os.environ.get(
-                "DF_DEPLOY_CORE_PACKAGE_REPOSITORY", core.PROJECT_PACKAGE_URL
+            self.OF_DEPLOY_CORE_PACKAGE_REPOSITORY = os.environ.get(
+                "OF_DEPLOY_CORE_PACKAGE_REPOSITORY", core.PROJECT_PACKAGE_URL
             )
-            self.DF_MODE = EnvironmentMode(os.environ.get("DF_MODE", "deploy"))
-            self.DF_MODE_RUN_PIPELINE_STATE_PREFIX = os.environ.get(
-                "DF_MODE_RUN_PIPELINE_STATE_PREFIX", tempfile.gettempdir()
+            self.OF_MODE = EnvironmentMode(os.environ.get("OF_MODE", "deploy"))
+            self.OF_MODE_RUN_PIPELINE_STATE_PREFIX = os.environ.get(
+                "OF_MODE_RUN_PIPELINE_STATE_PREFIX", tempfile.gettempdir()
             )
-            self.DF_MODE_RUN_PIPELINE_CLUSTER_ID = os.environ.get(
-                "DF_MODE_RUN_PIPELINE_CLUSTER_ID", None
+            self.OF_MODE_RUN_PIPELINE_CLUSTER_ID = os.environ.get(
+                "OF_MODE_RUN_PIPELINE_CLUSTER_ID", None
             )
-            self.DF_MODE_RUN_PIPELINE_ID = os.environ.get(
-                "DF_MODE_RUN_PIPELINE_ID", None
+            self.OF_MODE_RUN_PIPELINE_ID = os.environ.get(
+                "OF_MODE_RUN_PIPELINE_ID", None
             )
-            self.DF_MODE_RUN_LOCAL_SECRET_FILE = os.environ.get(
-                "DF_MODE_RUN_LOCAL_SECRET_FILE", None
+            self.OF_MODE_RUN_LOCAL_SECRET_FILE = os.environ.get(
+                "OF_MODE_RUN_LOCAL_SECRET_FILE", None
             )
-            self.DF_MODE_RUN_LOCAL_SPARK_CATALOG_LOCATION = os.environ.get(
-                "DF_MODE_RUN_LOCAL_SPARK_CATALOG_LOCATION", tempfile.gettempdir()
+            self.OF_MODE_RUN_LOCAL_SPARK_CATALOG_LOCATION = os.environ.get(
+                "OF_MODE_RUN_LOCAL_SPARK_CATALOG_LOCATION", tempfile.gettempdir()
             )
 
-            self.DF_MODE_DEPLOY_TEMP_LOCAL_STATE_FILE = os.environ.get(
-                "DF_MODE_DEPLOY_TEMP_LOCAL_STATE_FILE",
+            self.OF_MODE_DEPLOY_TEMP_LOCAL_STATE_FILE = os.environ.get(
+                "OF_MODE_DEPLOY_TEMP_LOCAL_STATE_FILE",
                 os.path.join(
                     tempfile.gettempdir(),
                     ".oneflow",
@@ -149,22 +149,22 @@ class Environment(metaclass=Singleton):
                 ),
             )
             import_resource_check = os.environ.get(
-                "DF_MODE_DEPLOY_IMPORT_RESOURCES", False
+                "OF_MODE_DEPLOY_IMPORT_RESOURCES", False
             )
             if import_resource_check in ["t", "true"]:
                 import_resource_check = True
             else:
                 import_resource_check = False
 
-            self.DF_MODE_DEPLOY_IMPORT_RESOURCES = bool(import_resource_check)
+            self.OF_MODE_DEPLOY_IMPORT_RESOURCES = bool(import_resource_check)
             local_task_parallel_check = os.environ.get(
-                "DF_MODE_RUN_LOCAL_TASK_PARALLEL", False
+                "OF_MODE_RUN_LOCAL_TASK_PARALLEL", False
             )
             if local_task_parallel_check in ["t", "true"]:
                 local_task_parallel_check = True
             else:
                 local_task_parallel_check = False
-            self.DF_MODE_RUN_LOCAL_TASK_PARALLEL = bool(local_task_parallel_check)
+            self.OF_MODE_RUN_LOCAL_TASK_PARALLEL = bool(local_task_parallel_check)
         except Exception:
             raise EnvironmentParseError(
                 "Problem with parsing the environment variables, Please check the global variables available for the framework."
@@ -204,29 +204,29 @@ class Presetting(ParentModel):
         return Presetting(name_prefix=name_prefix, name_suffix=name_suffix, tags=tags)
 
     def reconfigure(self):
-        if Environment().DF_MODE == EnvironmentMode.run:
+        if Environment().OF_MODE == EnvironmentMode.run:
             self.name_prefix = (
-                Environment().DF_PRESETTING_NAME_PREFIX
-                if Environment().DF_PRESETTING_NAME_PREFIX is not None
+                Environment().OF_PRESETTING_NAME_PREFIX
+                if Environment().OF_PRESETTING_NAME_PREFIX is not None
                 else self.name_prefix
             )
             self.name_suffix = (
-                Environment().DF_PRESETTING_NAME_SUFFIX
-                if Environment().DF_PRESETTING_NAME_SUFFIX is not None
+                Environment().OF_PRESETTING_NAME_SUFFIX
+                if Environment().OF_PRESETTING_NAME_SUFFIX is not None
                 else self.name_suffix
             )
             self.tags = (
-                Environment().DF_PRESETTING_TAGS
+                Environment().OF_PRESETTING_TAGS
                 if self.tags is None
-                else {**Environment().DF_PRESETTING_TAGS, **self.tags}
+                else {**Environment().OF_PRESETTING_TAGS, **self.tags}
             )
         else:
             if self.name_prefix is None:
-                self.name_prefix = Environment().DF_PRESETTING_NAME_PREFIX
+                self.name_prefix = Environment().OF_PRESETTING_NAME_PREFIX
             if self.name_suffix is None:
-                self.name_suffix = Environment().DF_PRESETTING_NAME_SUFFIX
+                self.name_suffix = Environment().OF_PRESETTING_NAME_SUFFIX
             if self.tags is None:
-                self.tags = Environment().DF_PRESETTING_TAGS
+                self.tags = Environment().OF_PRESETTING_TAGS
         env = Environment().get_env()
         self.name_prefix = replace_environment_variables(self.name_prefix, env)
         self.name_suffix = replace_environment_variables(self.name_suffix, env)

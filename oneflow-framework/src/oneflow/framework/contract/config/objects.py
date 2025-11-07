@@ -698,7 +698,7 @@ class TaskContractObject(BaseContractObject):
                     )
                     else schema_name
                 )
-                if Environment().DF_MODE != EnvironmentMode.run:
+                if Environment().OF_MODE != EnvironmentMode.run:
                     schema_name = (
                         env.presetting.name_prefix + "_" + schema_name
                         if (
@@ -753,7 +753,7 @@ class TaskContractObject(BaseContractObject):
             )
             else schema_name
         )
-        if Environment().DF_MODE != EnvironmentMode.run:
+        if Environment().OF_MODE != EnvironmentMode.run:
             schema_name = (
                 env.presetting.name_prefix + "_" + schema_name
                 if (
@@ -874,7 +874,7 @@ class PipelineContractObject(BaseContractObject):
             tags = self.config.tags.copy() if self.config.tags is not None else {}
             self.config.tags = {
                 **env.presetting.tags,
-                **global_environment.DF_PIPELINE_TAGS,
+                **global_environment.OF_PIPELINE_TAGS,
             }
             self.config.tags = {**self.config.tags, **tags}
 
@@ -1076,7 +1076,7 @@ class PipelineContractObject(BaseContractObject):
                     )
                     else schema_name
                 )
-                if Environment().DF_MODE != EnvironmentMode.run:
+                if Environment().OF_MODE != EnvironmentMode.run:
                     schema_name = (
                         env.presetting.name_prefix + "_" + schema_name
                         if (
@@ -1131,7 +1131,7 @@ class PipelineContractObject(BaseContractObject):
             )
             else schema_name
         )
-        if Environment().DF_MODE != EnvironmentMode.run:
+        if Environment().OF_MODE != EnvironmentMode.run:
             schema_name = (
                 env.presetting.name_prefix + "_" + schema_name
                 if (

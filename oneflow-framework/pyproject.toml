@@ -36,8 +36,8 @@ dependencies= {file ="environment/requirements.txt"}
 
 [project.urls]
 bugs = "https://github.com/narramukhesh/projectone/issues"
-changelog = "https://github.com/narramukhesh/projectone/tree/main/oneflow/HISTORY.md"
-homepage = "https://github.com/narramukhesh/projectone/tree/main/oneflow"
+changelog = "https://github.com/narramukhesh/projectone/tree/main/oneflow-framework/HISTORY.md"
+homepage = "https://github.com/narramukhesh/projectone/tree/main/oneflow-framework"
 
 [tool.setuptools]
 package-dir = {"" = "src/"}

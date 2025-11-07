@@ -257,20 +257,20 @@ class LocalRunner(PipelineRunner):
         ### setting local warehouse directory to place the data and setting the default catalog and schema
         spark_warehouse_dir = os.path.abspath(
             os.path.join(
-                environment.DF_MODE_RUN_LOCAL_SPARK_CATALOG_LOCATION,
+                environment.OF_MODE_RUN_LOCAL_SPARK_CATALOG_LOCATION,
                 "spark_catalog",
             )
         )
         for task in pipeline_configuration.tasks:
             task_configuration = pipeline_configuration.tasks[task].to_json()
             if pipeline_configuration.tasks[task].type == PipelineTaskTypes.spark_task:
-                if environment.DF_MODE_RUN_LOCAL_SECRET_FILE is not None:
+                if environment.OF_MODE_RUN_LOCAL_SECRET_FILE is not None:
                     task_configuration["secret_file_path"] = os.path.abspath(
-                        environment.DF_MODE_RUN_LOCAL_SECRET_FILE
+                        environment.OF_MODE_RUN_LOCAL_SECRET_FILE
                     )
-                if environment.DF_MODE_RUN_PIPELINE_STATE_PREFIX:
+                if environment.OF_MODE_RUN_PIPELINE_STATE_PREFIX:
                     task_configuration["metadata_location_path"] = (
-                        f"{environment.DF_MODE_RUN_PIPELINE_STATE_PREFIX}/{pipeline_configuration.name}/{pipeline_configuration.tasks[task].name}"
+                        f"{environment.OF_MODE_RUN_PIPELINE_STATE_PREFIX}/{pipeline_configuration.name}/{pipeline_configuration.tasks[task].name}"
                     )
                     if (
                         pipeline_configuration.tasks[task].refresh_policy.type
@@ -280,7 +280,7 @@ class LocalRunner(PipelineRunner):
                             out = output.copy()
                             out["options"][
                                 "checkpointLocation"
-                            ] = f"{environment.DF_MODE_RUN_PIPELINE_STATE_PREFIX}/{pipeline_configuration.name}/{pipeline_configuration.tasks[task].name}/checkpoint/{out['name']}"
+                            ] = f"{environment.OF_MODE_RUN_PIPELINE_STATE_PREFIX}/{pipeline_configuration.name}/{pipeline_configuration.tasks[task].name}/checkpoint/{out['name']}"
 
                             task_configuration["output"][index] = out
                 ### Temporary solution for the eliminating the three dot namespace because currently spark doesn't support that and in local mode its harder to create schemas so mentioning the schema as the folder path
@@ -392,7 +392,7 @@ class LocalRunner(PipelineRunner):
                         else:
                             current_batch.update([task])
 
-                if environment.DF_MODE_RUN_LOCAL_TASK_PARALLEL:
+                if environment.OF_MODE_RUN_LOCAL_TASK_PARALLEL:
                     current_run_batch = current_batch
                 else:
                     current_run_batch = [[i] for i in current_batch]

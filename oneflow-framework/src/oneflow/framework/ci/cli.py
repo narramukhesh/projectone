@@ -172,13 +172,13 @@ class CICliGroup(CliGroup):
     @staticmethod
     def execute_validate_command(args):
         """This command executes the validates command"""
-        from oneflow.framework.cli.cli import DataFlowFrameworkCli
+        from oneflow.framework.cli.cli import OneFlowFrameworkCli
 
         try:
             if len(args.project_folders) > 0:
                 comment_body = []
                 for project in args.project_folders:
-                    framework_cli = DataFlowFrameworkCli()
+                    framework_cli = OneFlowFrameworkCli()
                     validate_args = Args()
                     validate_args["json"] = True
                     validate_args["select"] = None
@@ -220,7 +220,7 @@ class CICliGroup(CliGroup):
     @staticmethod
     def execute_prerelease_command(args):
         """This command executes the validates command"""
-        from oneflow.framework.cli.cli import DataFlowFrameworkCli
+        from oneflow.framework.cli.cli import OneFlowFrameworkCli
 
         CHANGE_MAPPING = {
             "create": ":sparkles: **NEW OBJECT**",
@@ -231,7 +231,7 @@ class CICliGroup(CliGroup):
             if len(args.project_folders) > 0:
                 comment_body = []
                 for project in args.project_folders:
-                    framework_cli = DataFlowFrameworkCli()
+                    framework_cli = OneFlowFrameworkCli()
                     project_folder = os.path.basename(project)
                     prerelease_args = Args()
                     prerelease_args["json"] = True
@@ -303,12 +303,12 @@ class CICliGroup(CliGroup):
         """This command executes the validates command"""
 
         # There is a problem with circular dependency, so need to check it in future
-        from oneflow.framework.cli.cli import DataFlowFrameworkCli
+        from oneflow.framework.cli.cli import OneFlowFrameworkCli
 
         try:
             if len(args.project_folders) > 0:
                 for project in args.project_folders:
-                    framework_cli = DataFlowFrameworkCli()
+                    framework_cli = OneFlowFrameworkCli()
                     project_folder = os.path.basename(project)
                     release_args = Args()
                     release_args["json"] = True
