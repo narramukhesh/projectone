@@ -20,6 +20,7 @@ scalaVersion := "2.13.12"
 
 // Package Owner info
 name := "odata-spark-connector"
+description := "A Spark Connector for generic OData Sources like Creatio which supports OAuth type autentication. This Connector support both batch and micro-batch stream scan modes"
 organization := "io.github.narramukhesh"
 scmInfo := Some(ScmInfo(url("https://github.com/narramukhesh/projectone"), "git@github.com:narramukhesh/projectone.git"))
 homepage:= Some(url("https://github.com/narramukhesh/projectone"))
