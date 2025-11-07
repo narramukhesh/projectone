@@ -1,0 +1,114 @@
+stages:
+  - test
+  - release
+
+image: python:3.10.15-bookworm
+
+.python-scripts: &python-scripts |
+  # BEGSCRIPT
+  set -e
+
+  function log_info() {
+      echo -e "[\\e[1;94mINFO\\e[0m] $*"
+  }
+
+  function log_warn() {
+      echo -e "[\\e[1;93mWARN\\e[0m] $*"
+  }
+
+  function log_error() {
+      echo -e "[\\e[1;91mERROR\\e[0m] $*"
+  }
+
+  function assert_defined() {
+    if [[ -z "$1" ]]
+    then
+      log_error "$2"
+      exit 1
+    fi
+  }
+
+  function install_ca_certs() {
+    certs=$1
+    if [[ -z "$certs" ]]
+    then
+      return
+    fi
+
+    # import in system
+    if echo "$certs" >> /etc/ssl/certs/ca-certificates.crt
+    then
+      log_info "CA certificates imported in \\e[33;1m/etc/ssl/certs/ca-certificates.crt\\e[0m"
+    fi
+    if echo "$certs" >> /etc/ssl/cert.pem
+    then
+      log_info "CA certificates imported in \\e[33;1m/etc/ssl/cert.pem\\e[0m"
+    fi
+  }
+  # ENDSCRIPT
+
+test:
+  stage: test
+  before_script:
+    # Enable the usage of sources over https
+    - apt update
+    - apt install default-jdk -yqq
+    - apt install nodejs -yqq
+    - apt install npm -yqq
+
+  script:
+    - cd dataflow-framework
+    - python -m pip install . --extra-index-url ${CI_API_V4_URL}/projects/${CI_PROJECT_ID}/packages/pypi/simple
+    - pytest --junitxml=report.xml --cov-report xml:coverage.xml
+  coverage: '/Code coverage: /TOTAL.*? (100(?:\.0+)?\%\|[1-9]?\d(?:\.\d+)?\%)$/'
+  artifacts:
+    when: always
+    reports:
+      junit: ./dataflow-framework/report.xml
+      coverage_report:
+        coverage_format: cobertura
+        path: ./dataflow-framework/coverage.xml
+  rules:
+  - if: $CI_PIPELINE_SOURCE == "parent_pipeline"
+
+
+release:
+  stage: release
+  needs: [test]
+  variables:
+    GIT_DEPTH: 0
+    GITLAB_TOKEN: ${GITLAB_ACCESS_TOKEN}
+    GIT_COMMIT_AUTHOR: "semantic-release <$GITLAB_USER_EMAIL>"
+    TWINE_PASSWORD : ${CI_JOB_TOKEN}
+    TWINE_USERNAME : gitlab-ci-token
+  before_script:
+    - !reference [.python-scripts]
+    - install_ca_certs "${CUSTOM_CA_CERTS:-$DEFAULT_CA_CERTS}"
+    # configure GIT repository for write operations using a DEDICATED SSH PRIVATE KEY
+    - assert_defined "$GIT_PRIVATE_KEY" 'Missing required env $GIT_PRIVATE_KEY'
+    - eval $(ssh-agent -s)
+    - echo "$GIT_PRIVATE_KEY" | ssh-add -
+    - mkdir -m 700 $HOME/.ssh
+    - ssh-keyscan -H $CI_SERVER_HOST >> ~/.ssh/known_hosts
+    - git reset --hard
+    - git clean -fd
+    - git checkout ${CI_COMMIT_REF_NAME}
+    - git pull origin ${CI_COMMIT_REF_NAME}
+    - git config user.name "sematic-release"
+    - git config user.email "semantic-release@exinity.com"
+    - git remote set-url origin "git@${CI_SERVER_HOST}:$(echo $CI_REPOSITORY_URL | cut -d'/' -f4-)"
+    - export PIP_EXTRA_INDEX_URL="${CI_API_V4_URL}/projects/${CI_PROJECT_ID}/packages/pypi/simple"
+  script:
+    - cd dataflow-framework
+    - python -m pip install -r environment/requirements.txt --extra-index-url ${CI_API_V4_URL}/projects/${CI_PROJECT_ID}/packages/pypi/simple
+    - python -m pip install python-semantic-release
+    - semantic-release version
+    - python -m build
+    - python -m pip install twine
+    - twine upload --repository-url ${CI_API_V4_URL}/projects/${CI_PROJECT_ID}/packages/pypi dist/*
+  artifacts:
+    paths:
+      - ./dataflow-framework/dist/
+  environment: production
+  rules:
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH && $CI_COMMIT_AUTHOR !~ /semantic-release.*/
