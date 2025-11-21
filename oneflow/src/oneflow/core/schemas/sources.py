@@ -1,0 +1,257 @@
+from oneflow.core.schemas import ParentEnum, ParentModel, BaseCredentials
+from typing import Optional, Dict, Any, List
+from pydantic import Field, ConfigDict, computed_field, model_validator
+from oneflow.core.exception.sources import FileSourceCredentialsValidationError
+from oneflow.core.utils import extract_zip_file
+from oneflow.core.exception.sources import SourceSchemaError
+from pyspark.sql import SparkSession
+from pyspark.sql.types import _parse_datatype_string
+
+
+class FileSourceType(ParentEnum):
+    """This is schema definition for the file source type"""
+
+    sharepoint = "sharepoint"
+    sftp = "sftp"
+    file = "file"
+
+
+class FileCompression(ParentEnum):
+    """This is schema definition for the file compression"""
+
+    zip = "zip"
+
+    @classmethod
+    def get_compression_function(cls, value):
+        if value == cls.zip:
+            return extract_zip_file
+
+
+class SparkSourceType(ParentEnum):
+    """This is schema definition for the spark source type"""
+
+    table = "table"
+    stream = "stream"
+    file = "file"
+
+
+class SparkSource(ParentEnum):
+    """This is a schema definition for the spark source"""
+
+    creatio = "creatio"
+    delta = "delta"
+    jdbc = "jdbc"
+    parquet = "parquet"
+    kafka = "kafka"
+    json = "json"
+    csv = "csv"
+    excel = "excel"
+
+
+class SparkSourceExtractType(ParentEnum):
+    """This is a schema definition for the spark extract type"""
+
+    batch = "batch"
+    stream = "stream"
+
+
+class SinkType(ParentEnum):
+    """This is a schema definition for the spark sink type"""
+
+    table = "table"
+    file = "file"
+
+
+class Sink(ParentEnum):
+    """This is a schema definition for the sink"""
+
+    delta = "delta"
+    jdbc = "jdbc"
+    parquet = "parquet"
+    kafka = "kafka"
+    json = "json"
+    csv = "csv"
+    excel = "excel"
+
+
+class WriteType(ParentEnum):
+    """This is a schema definition for the write type"""
+
+    scd2 = "scd2"
+    scd1 = "scd1"
+    scd3 = "scd3"
+    append = "append"
+    overwrite = "overwrite"
+    selective_overwrite = "selective_overwrite"
+
+
+class StreamTrigger(ParentModel):
+    """This class is a schema definition for the schema trigger"""
+
+    once: Optional[bool] = Field(True, description="trigger for the streaming workload")
+    availableNow: Optional[bool] = Field(
+        True, description="trigger for the streaming workload"
+    )
+    processingTime: Optional[str] = Field(
+        None, description="trigger for the streaming workload"
+    )
+
+    @computed_field(
+        description="This field is used the configuration for sink trigger",
+        return_type=Dict[str, Any],
+    )
+    @property
+    def trigger(self):
+        """This property returns the stream availability trigger in json for argument to spark write stream"""
+        if self.processingTime is not None:
+            return {"processingTime": self.processingTime}
+        elif self.availableNow:
+            return {"availableNow": True}
+        else:
+            return {"availableNow": False}
+
+
+class ReadOptions(ParentModel):
+    """This is a schema definition for the source read options"""
+
+    source_schema: Optional[str] = Field(
+        None, description="source schema to be applied while extracting the source data"
+    )
+    model_config = ConfigDict(extra="allow")
+
+    @model_validator(mode="after")
+    def validate(self):
+        """This method validates the read options provided"""
+        if self.source_schema is not None:
+            if SparkSession.getActiveSession() is None:
+                SparkSession.builder.appName("datatype-testing").getOrCreate()
+            try:
+                _parse_datatype_string(self.source_schema)
+            except Exception as e:
+                raise SourceSchemaError(
+                    f"Problem with the provided source schema which is not inline with spark schema, failed because of error {e}"
+                )
+        return self
+
+
+class WriteExtraOptions(ParentModel):
+    """This is the schema definition for the extra options where write function can use the these options to modify functionality of writing to target sources"""
+
+    generate_record_upsert_columns: Optional[bool] = Field(
+        False,
+        description="Where it flag is used to specify whether to generate two columns __metadata_insert_ts__ and __metadata_update_ts__ used for record level insert and update timestamp",
+    )
+    use_key_attributes_in_merge: Optional[bool] = Field(
+        False,
+        description="Flag to specify to use key attributes directly instead of the key hash value for merge which may increase the performance if columns are cluster executor can push down the filter",
+    )
+    use_paritition_column_in_merge: Optional[List[str]] = Field(
+        None, description="Specify the parition columns to be included in the merge"
+    )
+    rename_metadata_columns: Optional[Dict[str, str]] = Field(
+        None,
+        description="dictionary to specify any metadata columns generated by the write functions are renamed to specified value",
+    )
+    active_record_value_mapping: Optional[Dict[str, str]] = Field(
+        None,
+        description="dictionary to specify to map default map to corresponding values where it used in scd2 operation where default __metadata_active__ column has two value Y-Active, N-Inactive but these can customized by this field, Ex: {'Y':'A','N':'I'}",
+    )
+    persist_dataset: Optional[bool] = Field(
+        False,
+        description="boolean to persist the dataset for faster computation",
+    )
+    stage_results: Optional[bool] = Field(
+        False,
+        description="boolean to local checkpoint and truncate the oneflow lineage the dataset for faster computation",
+    )
+    deduplicate_onkeys: Optional[bool] = Field(
+        False,
+        description="boolean to deduplicate the keys",
+    )
+    change_tracking_columns: Optional[Dict[str, Any]] = Field(
+        None,
+        description="Dictionary to be specified to populate the columns withrespect to change in target columns",
+    )
+    fix_duplicates_by_key: Optional[bool] = Field(
+        False,
+        description="boolean to fix the duplicates source rows by rearraging with history_tracking column in place",
+    )
+    history_tracking_col: Optional[str] = Field(
+        None,
+        description="history tracking column to be populated with the __metadata_valid_from_col__",
+    )
+    exclude_data_columns: Optional[str] = Field(
+        None,
+        description="attributes excluded from the calcualting the data/upd hash column values",
+    )
+    generated_cols: Optional[Dict[str, str] | None] = Field(
+        None,
+        description="columns to be generated by the write function",
+    )
+    history_start_tracking_value: Optional[str | None] = Field(
+        None,
+        description="history start value when any write to be used by the history tracking dimension table",
+    )
+    history_start_tracking_value_type: Optional[str | None] = Field(
+        None,
+        description="history start value type when any write to be used by the history tracking dimension table",
+    )
+
+
+class WriteOptions(ParentModel):
+    """This is a schema definition for the write options"""
+
+    partition_by: Optional[str] = Field(
+        None, description="partition column to partition the target table"
+    )
+    key_attributes: Optional[str] = Field(
+        None, description="key attributes for the comparision"
+    )
+    column_attributes: Optional[str] = Field(
+        None, description="column attributes for creating the new column"
+    )
+    data_attributes: Optional[str] = Field(
+        None, description="data attributes for tracking the changes"
+    )
+    checkpointLocation: Optional[str] = Field(
+        None,
+        description="checkpoint location to store the state of the streaming",
+        alias="checkpoint_location",
+    )
+    trigger: Optional[StreamTrigger] = Field(
+        StreamTrigger(),
+        description="trigger name to specify how to run the stream whether to run continuous,available_now(micro_batch)",
+    )
+    extra_options: Optional[WriteExtraOptions] = Field(
+        None,
+        description="extra options used by writer to customize the writing the data to target sources",
+    )
+    model_config = ConfigDict(extra="allow")
+
+
+class FileSourceCredentials(BaseCredentials):
+    """This is a schema definition for the sharepoint credentials"""
+
+    tenant_id: Optional[str] = Field(
+        None,
+        description="tenant id to get connected to",
+        json_schema_extra={"secret": True},
+    )
+    site_url: Optional[str] = Field(
+        None, description="site url to connect to file source"
+    )
+    site_port: Optional[int] = Field(
+        22, description="port to connect to the file source"
+    )
+
+    @model_validator(mode="after")
+    def validation(self):
+        """This method validation the initialized objects following the spark task inputs"""
+        if (self.client_id is None) or (
+            self.client_secret is None and self.client_certificate is None
+        ):
+            raise FileSourceCredentialsValidationError(
+                "Missing one of the required file source credential options"
+            )
+
+        return self
