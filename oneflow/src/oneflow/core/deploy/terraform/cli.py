@@ -97,7 +97,7 @@ class TerraformDeployCliGroup(CliGroup):
             type=str,
             help="Json String/file to be passed to configure pipeline which is used to deploy in target spark/databricks environment",
         )
-        create_parser.add_argument(
+        validate_parser.add_argument(
             "-t",
             "--pipeline_type",
             required=True,

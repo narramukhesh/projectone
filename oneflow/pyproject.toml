@@ -27,7 +27,7 @@ keywords = [
   "delta-lake",
   "Python"
 ]
-license = {text = "Open Source"}
+license = "MIT"
 
 [tool.setuptools.dynamic]
 version = {attr = "oneflow.core.__version__"}
