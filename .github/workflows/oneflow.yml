@@ -52,7 +52,7 @@ jobs:
           python -m pip install dist/*.tar.gz
           pytest --junitxml=report.xml --cov-report xml:coverage.xml
       - name: Upload coverage report artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: code-coverage-report
           path: ./coverage.xml
@@ -122,7 +122,7 @@ jobs:
           python -m pip install .
           pytest --junitxml=report.xml --cov-report xml:coverage.xml
       - name: Upload coverage report artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: code-coverage-report
           path: ./coverage.xml
