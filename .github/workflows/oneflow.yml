@@ -23,7 +23,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: "Examine changed files"
-        uses: dorny/paths-filter
+        uses: dorny/paths-filter@v3
         id: filter
         with:
           filters: |
