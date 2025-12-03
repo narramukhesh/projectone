@@ -1,0 +1,166 @@
+
+name: oneflow
+on:
+  push:
+    branches: [ "main" ]
+    paths:
+        - oneflow/*
+        - oneflow-framework/*
+  pull_request:
+    types: ["opened"]
+    branches: [ "main" ]
+    paths:
+        - oneflow/*
+        - oneflow-framework/*
+  workflow_dispatch:
+jobs:
+  path_filters:
+    name: "Get Changed files"
+    outputs: 
+      oneflow: ${{ steps.filter.outputs.oneflow }}
+      oneflow_framework: ${{ steps.filter.outputs.oneflow_framework }}
+    steps:
+      - uses: actions/checkout
+
+      - name: "Examine changed files"
+        uses: dorny/paths-filter
+        id: filter
+        with:
+          filters: |
+            oneflow:
+              - "oneflow/*"
+            oneflow_framework:
+              - "oneflow-framework/*"
+  oneflow_test:
+    runs-on: ubuntu-latest
+    needs: [path_filters]
+    if: |
+      ${{
+        needs.path_filters.outputs.oneflow == 'true'
+      }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: hashicorp/setup-terraform@v3
+      - uses: actions/setup-node@v4
+        with:
+          cache: 'npm'
+      - name: Run Test
+        run: |
+          cp oneflow /tmp/oneflow
+          cd /tmp/oneflow
+          python -m build --sdist
+          python -m pip install dist/*.tar.gz
+          pytest --junitxml=report.xml --cov-report xml:coverage.xml
+      - name: Upload coverage report artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: code-coverage-report
+          path: ./coverage.xml
+  
+  oneflow_release:
+    runs-on: ubuntu-latest
+    if: (!startsWith(github.event.head_commit.committer.name, 'sematic-release-projectone')) && contains( github.ref, 'main') && (needs.path_filters.outputs.oneflow == 'true')
+    needs: [oneflow_test]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: hashicorp/setup-terraform@v3
+      - uses: actions/setup-node@v4
+        with:
+          cache: 'npm'
+      - uses: actions/setup-python@v5
+        with:
+            python-version: '3.10'
+      - name: Oneflow Release
+        run: |
+            eval $(ssh-agent -s)
+            echo "${{ secrets.SEM_REL_PRIVATE }}" | ssh-add -
+            mkdir -m 700 $HOME/.ssh
+            git reset --hard
+            git clean -fd
+            git checkout ${{ github.ref_name }}
+            git pull origin ${{ github.ref_name }}
+            git config --local user.name "semantic-release-projectone"
+            git config --local user.email "semantic-release-projectone@gmail.com"
+            cd oneflow
+            python -m pip install -r environment/requirements.txt
+            python -m pip install python-semantic-release
+            semantic-release version
+            cp -r -f oneflow /tmp/oneflow
+            cd /tmp/oneflow
+            python -m build --sdist
+            python -m pip install twine
+            twine upload dist/*.tar.gz
+           
+        env:
+          GH_TOKEN: ${{ secrets.PAT_FOR_WORKFLOW }}
+          GIT_COMMIT_AUTHOR: sematic-release-projectone
+          PGP_SECRET: ${{ secrets.PGP_PRIVATEKEY }}
+          TWINE_PASSWORD: ${{ secrets.PYPI_TOKEN }}
+          TWINE_USERNAME: __token__
+  
+  oneflow_framework_test:
+    runs-on: ubuntu-latest
+    needs: [path_filters,oneflow_test]
+    if: |
+      ${{
+        needs.path_filters.outputs.oneflow_framework == 'true'
+      }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: hashicorp/setup-terraform@v3
+      - uses: actions/setup-node@v4
+        with:
+          cache: 'npm'
+      - name: Run Test
+        run: |
+          cp oneflow /tmp/oneflow
+          cd /tmp/oneflow
+          python -m build --sdist
+          python -m pip install dist/*.tar.gz
+          cd -
+          cd oneflow-framework
+          python -m pip install .
+          pytest --junitxml=report.xml --cov-report xml:coverage.xml
+      - name: Upload coverage report artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: code-coverage-report
+          path: ./coverage.xml
+  
+  oneflow_framework_release:
+    runs-on: ubuntu-latest
+    if: (!startsWith(github.event.head_commit.committer.name, 'sematic-release-projectone')) && contains( github.ref, 'main') && (needs.path_filters.outputs.oneflow_framework == 'true')
+    needs: [path_filters,oneflow_framework_test]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          cache: 'npm'
+      - uses: actions/setup-python@v5
+        with:
+            python-version: '3.10'
+      - name: Oneflow Release
+        run: |
+            eval $(ssh-agent -s)
+            echo "${{ secrets.SEM_REL_PRIVATE }}" | ssh-add -
+            mkdir -m 700 $HOME/.ssh
+            git reset --hard
+            git clean -fd
+            git checkout ${{ github.ref_name }}
+            git pull origin ${{ github.ref_name }}
+            git config --local user.name "semantic-release-projectone"
+            git config --local user.email "semantic-release-projectone@gmail.com"
+            cd oneflow-framework
+            python -m pip install -r environment/requirements.txt
+            python -m pip install python-semantic-release
+            semantic-release version
+            python -m build --sdist
+            python -m pip install twine
+            twine upload dist/*.tar.gz
+           
+        env:
+          GH_TOKEN: ${{ secrets.PAT_FOR_WORKFLOW }}
+          GIT_COMMIT_AUTHOR: sematic-release-projectone
+          PGP_SECRET: ${{ secrets.PGP_PRIVATEKEY }}
+          TWINE_PASSWORD: ${{ secrets.PYPI_TOKEN }}
+          TWINE_USERNAME: __token__
