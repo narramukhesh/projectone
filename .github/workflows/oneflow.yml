@@ -50,8 +50,8 @@ jobs:
             python-version: '3.10'
       - name: Run Test
         run: |
-          apt-get update
-          apt-get install ca-certificates -y
+          sudo apt-get update -y
+          sudo apt-get install -y --no-install-recommends ca-certificates
           python -m pip install build
           cp -r -f oneflow /tmp/oneflow
           cd /tmp/oneflow
