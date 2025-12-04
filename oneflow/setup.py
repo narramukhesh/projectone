@@ -30,7 +30,7 @@ class DFInstallCommand(sdist):
             shutil.rmtree(temp_dir,ignore_errors=True)
 
         if not os.path.exists(temp_dir):
-            os.mkdir(temp_dir, mode=777)
+            os.mkdir(temp_dir, mode=0o777)
 
         # Downloading the confluent-cloud into the python packages
         # check npm exists or not
@@ -79,7 +79,7 @@ class DFInstallCommand(sdist):
                     }
 
                 print("\033[1m Generating the temporary confluent terraform provider configuration... \033[1m",flush=True)
-                print(f"{os.stat(temp_dir)}",flush=True)
+                print(f"\033[1m Generated temporary configuration directory location stat {os.stat(temp_dir)}... \033[1m",flush=True)
                 with open(f"{temp_dir}/cdktf.json", "w") as f:
                     json.dump(confluent_cdktf_tml, f)
                 print("\033[1m Generating the confluent terraform provider artifacts... \033[1m",flush=True)
