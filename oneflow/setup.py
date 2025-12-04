@@ -53,7 +53,7 @@ class DFInstallCommand(sdist):
                         stderr=subprocess.PIPE,
                     )
                 except FileNotFoundError as e:
-                    print("Installing the cdktf package....")
+                    print("Installing the cdktf package....",flush=True)
                     npm_cdktf_result = subprocess.run(
                         [
                             "npm",
@@ -78,9 +78,10 @@ class DFInstallCommand(sdist):
                         "terraformProviders": ["confluentinc/confluent"],
                     }
 
+                print("\033[1m Generating the temporary confluent terraform provider configuration... \033[1m",flush=True)
                 with open(f"{temp_dir}/cdktf.json", "w") as f:
                     json.dump(confluent_cdktf_tml, f)
-                print("\033[1m Generating the confluent terraform provider artifacts... \033[1m")
+                print("\033[1m Generating the confluent terraform provider artifacts... \033[1m",flush=True)
                 npm_confluent_provider_result = subprocess.run(
                         ["cdktf", "get", "-l", "python", "-o", f"{temp_dir}/download"],
                         stdout=subprocess.PIPE,
