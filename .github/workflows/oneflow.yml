@@ -41,7 +41,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: hashicorp/setup-terraform@v3
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v6
         with:
           package-manager-cache: false
       - name: Run Test
@@ -64,7 +64,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: hashicorp/setup-terraform@v3
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v6
         with:
           package-manager-cache: false
       - uses: actions/setup-python@v5
@@ -100,7 +100,7 @@ jobs:
   
   oneflow_framework_test:
     runs-on: ubuntu-latest
-    needs: [path_filters,oneflow_test]
+    needs: [path_filters,oneflow_release]
     if: |
       ${{
         needs.path_filters.outputs.oneflow_framework == 'true'
@@ -108,7 +108,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: hashicorp/setup-terraform@v3
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v6
         with:
           package-manager-cache: false
       - name: Run Oneflow framework Test
@@ -133,7 +133,7 @@ jobs:
     needs: [path_filters,oneflow_framework_test]
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v6
         with:
           package-manager-cache: false
       - uses: actions/setup-python@v5
