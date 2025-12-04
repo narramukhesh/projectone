@@ -23,7 +23,7 @@ class DFInstallCommand(sdist):
         ):
             os.chdir(Path(__file__).parent.absolute())
 
-        temp_dir = os.path.join(tempfile.gettempdir(), "confluent")
+        temp_dir = os.path.join(tempfile.gettempdir(), "oneflow_confluent_provider")
         external_dir = f"{Path(__file__).parent.absolute()}/src/oneflow/core/external"
 
         if os.path.exists(temp_dir):
