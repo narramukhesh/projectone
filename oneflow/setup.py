@@ -79,6 +79,7 @@ class DFInstallCommand(sdist):
                     }
 
                 print("\033[1m Generating the temporary confluent terraform provider configuration... \033[1m",flush=True)
+                print(f"{os.stat(temp_dir)}",flush=True)
                 with open(f"{temp_dir}/cdktf.json", "w") as f:
                     json.dump(confluent_cdktf_tml, f)
                 print("\033[1m Generating the confluent terraform provider artifacts... \033[1m",flush=True)
