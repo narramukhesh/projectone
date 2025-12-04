@@ -46,7 +46,7 @@ jobs:
           package-manager-cache: false
       - name: Run Test
         run: |
-          cp oneflow /tmp/oneflow
+          cp -r -f oneflow /tmp/oneflow
           cd /tmp/oneflow
           python -m build --sdist
           python -m pip install dist/*.tar.gz
@@ -113,7 +113,7 @@ jobs:
           package-manager-cache: false
       - name: Run Oneflow framework Test
         run: |
-          cp oneflow /tmp/oneflow
+          cp -r -f oneflow /tmp/oneflow
           cd /tmp/oneflow
           python -m build --sdist
           python -m pip install dist/*.tar.gz
