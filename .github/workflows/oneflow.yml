@@ -44,6 +44,9 @@ jobs:
       - uses: actions/setup-node@v6
         with:
           package-manager-cache: false
+      - uses: actions/setup-python@v6
+        with:
+            python-version: '3.10'
       - name: Run Test
         run: |
           cp -r -f oneflow /tmp/oneflow
@@ -67,7 +70,7 @@ jobs:
       - uses: actions/setup-node@v6
         with:
           package-manager-cache: false
-      - uses: actions/setup-python@v5
+      - uses: actions/setup-python@v6
         with:
             python-version: '3.10'
       - name: Oneflow Release
@@ -111,6 +114,9 @@ jobs:
       - uses: actions/setup-node@v6
         with:
           package-manager-cache: false
+      - uses: actions/setup-python@v6
+        with:
+            python-version: '3.10'
       - name: Run Oneflow framework Test
         run: |
           cp -r -f oneflow /tmp/oneflow
@@ -136,7 +142,7 @@ jobs:
       - uses: actions/setup-node@v6
         with:
           package-manager-cache: false
-      - uses: actions/setup-python@v5
+      - uses: actions/setup-python@v6
         with:
             python-version: '3.10'
       - name: Oneflow Framework Release
