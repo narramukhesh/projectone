@@ -15,10 +15,10 @@ maintainers = [
   {name = "Mukhesh Narra", email = "narramukhesh@gmail.com"}
 ]
 classifiers = [
-  "Development Status :: InDevelopment",
+  "Development Status :: 5 - Production/Stable",
   "Natural Language :: English",
-  "Intended Audience :: Data Engineers",
-  "Topic :: DataEngineering",
+  "Intended Audience :: Developers",
+  "Topic :: Software Development",
 ]
 keywords = [
   "dataengineering",
