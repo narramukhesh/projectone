@@ -1,5 +1,5 @@
 ProjectOneflow
-============
+============================================
 ProjectOneflow Package is metadata-driven framework which implements all data-engineering patterns as a workload with deployment in-place
 ​
 
@@ -13,10 +13,9 @@ Install
 Data Engineering Package is deployed on  Pypi package manager. 
 To install the package:
 1. Run the below code to install the code 
-​
-    ```shell
-    pip install projectoneflow
-    ```
+```shell
+pip install projectoneflow
+```
 
 <!-- To Get Started
 ------------------------
@@ -68,7 +67,7 @@ All above modules are placed under `src/projectoneflow` folder
 
 
 ProjectOneflow Design
------------------
+-------------------------------------
 1. Every pipeline/tranformation in data-engineering can be expressed as three stages which are `input -> execution -> output`
 2. To explain further, input corresponds to source/producer from where we are extracting data for transformation
 3. Execution stage is where core transformation logic is defined which takes input/producer data and applies some transformations and returns the transformed data

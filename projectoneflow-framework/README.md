@@ -1,5 +1,5 @@
 ProjectOneflow-Framework
-============
+===============================
 ProjectOneflow-Framework Package is wrapper over the projectoneflow package which provides all data ingestion patterns
 ​
 
@@ -14,9 +14,10 @@ Data Engineering Package is deployed on Pypi package manager.
 To install the package:
 1. Run the below code to install the code 
 ​
-    ```shell
-    pip install projectoneflow-framework
-    ```
+```shell
+pip install projectoneflow-framework
+```
+
 Basic Idea
 ------------------------
 Before getting to how to get started, let's understand the what are all concepts are involved in this project.
@@ -45,34 +46,17 @@ To Get Started
 This package comes with command `oframework`. for quick reference for all sub-commands. Please use the command `oframework -h`.
 
 1. To get started with framework, we can get the project contract set up using the below command
+
     Please use below command:
     ```shell
     oframework blueprint generate contract -f <TARGET_FOLDER_PATH> -c <CONTRACT_NAME>
     ```
-    Above command will automatically generates the contract specification at provided folder.
-
-    Once you have ran the above command, it creates the below folder structure at specified <TARGET_FOLDER_PATH>.
-    ```
-    <CONTRACT_NAME>/
-        pipeline/
-        dataset/
-        transform/
-        <CONTRACT_NAME>.json
-    ```
+    Above command will automatically generates the contract specification at provided folder. Once you have ran the above command, it creates the below folder structure at specified <TARGET_FOLDER_PATH>. See below directory structures: `<CONTRACT_NAME>/`,`<CONTRACT_NAME>/pipeline/`,`<CONTRACT_NAME>/dataset/`,`<CONTRACT_NAME>/transform/`,`<CONTRACT_NAME>/<CONTRACT_NAME>.json`
+    
     As defined above folder structure, command creates the the folder <CONTRACT_NAME> under <TARGET_FOLDER_PATH>. where pipeline, dataset, transform folders are specific to project contract assets. But by default project contract specification is created but command has option to specify the contract type under option `--contract_type <CONTRACT_TYPE>`.
     Created <CONTRACT_NAME>.json has the specification as below template.
-    ```
-    {
-        "name":"<CONTRACT_NAME>",
-        "description":"",
-        "dataset":["datasets"],
-        "pipelines":["pipelines"],
-        "transform":["transform"],
-        "deploy":{
-            "databricks":null
-        }
-    }
-    ```
+    ```json
+    {"name":"<CONTRACT_NAME>","description":"","dataset":["datasets"],"pipelines":["pipelines"],"transform":["transform"],"deploy":{"databricks":null}}```
 
 2. To get started with the pipeline specification, we can use the same blueprint command with different sub-command as follows
     ```shell
