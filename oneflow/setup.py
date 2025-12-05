@@ -59,8 +59,22 @@ class DFInstallCommand(sdist):
                             "npm",
                             "install",
                             "--global",
-                            f"cdktf-cli@{CDKTF_CLI_VERSION}",
-                            f"cdktf@{CDKTF_VERSION}",
+                            f"cdktf-cli@{CDKTF_CLI_VERSION}"
+                        ],
+                        stdout=subprocess.PIPE,
+                        stderr=subprocess.PIPE,
+                    )
+                    if npm_cdktf_result.returncode != 0:
+                        raise OSError(
+                            f"\033[1m cdktf installation failed due {npm_cdktf_result.stderr.decode()}.\033[0m"
+                        )
+                    
+                    npm_cdktf_result = subprocess.run(
+                        [
+                            "npm",
+                            "install",
+                            "--global",
+                            f"cdktf@{CDKTF_VERSION}"
                         ],
                         stdout=subprocess.PIPE,
                         stderr=subprocess.PIPE,
@@ -70,7 +84,6 @@ class DFInstallCommand(sdist):
                             f"\033[1m cdktf installation failed due {npm_cdktf_result.stderr.decode()}.\033[0m"
                         )
                         
-
                 confluent_cdktf_tml = {
                         "language": "python",
                         "app": "python3 ./main.py",
@@ -95,8 +108,8 @@ class DFInstallCommand(sdist):
                         )
                 if os.path.exists(external_dir):
                     shutil.rmtree(external_dir,ignore_errors=True)
-                os.makedirs(external_dir,mode=677,exist_ok=True)
-                Path(f"{external_dir}/__init__.py").touch(mode=677,exist_ok=True)
+                os.makedirs(external_dir,exist_ok=True)
+                Path(f"{external_dir}/__init__.py").touch(mode=0o777,exist_ok=True)
                 shutil.move(f"{temp_dir}/download",external_dir)
                 
         except FileNotFoundError as e:
