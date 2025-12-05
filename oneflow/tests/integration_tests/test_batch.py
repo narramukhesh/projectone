@@ -51,7 +51,7 @@ def test_batch_file_source_delta_sink_append(
     if os.path.exists(current_test_folder):
         shutil.rmtree(f"{current_test_folder}", ignore_errors=True)
 
-    os.makedirs(f"{current_test_folder}", mode=777)
+    os.makedirs(f"{current_test_folder}", mode=0o777)
 
     logger.info(
         f"Starting to write the sample data into {current_test_folder}/data_test.csv"
@@ -133,7 +133,7 @@ def test_batch_delta_source_delta_sink_overwrite(
     if os.path.exists(current_test_folder):
         shutil.rmtree(f"{current_test_folder}", ignore_errors=True)
 
-    os.makedirs(f"{current_test_folder}", mode=777)
+    os.makedirs(f"{current_test_folder}", mode=0o777)
 
     logger.info(
         f"Starting to write the sample deltadata into {current_test_folder}/delta_source"
@@ -213,7 +213,7 @@ def test_batch_delta_source_delta_sink_scd1(setup_teardown, spark_context, sampl
     if os.path.exists(current_test_folder):
         shutil.rmtree(f"{current_test_folder}", ignore_errors=True)
 
-    os.makedirs(f"{current_test_folder}", mode=777)
+    os.makedirs(f"{current_test_folder}", mode=0o777)
 
     logger.info(
         f"Starting to write the sample delta data into {current_test_folder}/delta_source"
@@ -343,7 +343,7 @@ def test_batch_delta_source_delta_sink_scd2(setup_teardown, spark_context, sampl
     if os.path.exists(current_test_folder):
         shutil.rmtree(f"{current_test_folder}", ignore_errors=True)
 
-    os.makedirs(f"{current_test_folder}", mode=777)
+    os.makedirs(f"{current_test_folder}", mode=0o777)
 
     logger.info(
         f"Starting to write the sample deltadata into {current_test_folder}/delta_source"
@@ -486,7 +486,7 @@ def test_batch_delta_source_delta_sink_scd3(setup_teardown, spark_context, sampl
     if os.path.exists(current_test_folder):
         shutil.rmtree(f"{current_test_folder}", ignore_errors=True)
 
-    os.makedirs(f"{current_test_folder}", mode=777)
+    os.makedirs(f"{current_test_folder}", mode=0o777)
 
     logger.info(
         f"Starting to write the sample deltadata into {current_test_folder}/delta_source"
@@ -678,7 +678,7 @@ def test_batch_file_source_delta_sink_append_secret_parsing(
     if os.path.exists(current_test_folder):
         shutil.rmtree(f"{current_test_folder}", ignore_errors=True)
 
-    os.makedirs(f"{current_test_folder}", mode=777)
+    os.makedirs(f"{current_test_folder}", mode=0o777)
 
     logger.info(
         f"Starting to write the sample data into {current_test_folder}/data_test.csv"
@@ -773,7 +773,7 @@ def test_batch_delta_source_delta_sink_append_cdc(
     if os.path.exists(current_test_folder):
         shutil.rmtree(f"{current_test_folder}", ignore_errors=True)
 
-    os.makedirs(f"{current_test_folder}", mode=777)
+    os.makedirs(f"{current_test_folder}", mode=0o777)
 
     logger.info(
         f"Starting to write the sample deltadata into {current_test_folder}/delta_source"
@@ -918,7 +918,7 @@ def test_batch_delta_source_delta_sink_append_all_features(
     if os.path.exists(current_test_folder):
         shutil.rmtree(f"{current_test_folder}", ignore_errors=True)
 
-    os.makedirs(f"{current_test_folder}", mode=777)
+    os.makedirs(f"{current_test_folder}", mode=0o777)
 
     logger.info(
         f"Starting to write the sample deltadata into {current_test_folder}/delta_source"
@@ -1063,7 +1063,7 @@ def test_batch_delta_source_delta_sink_scd2_with_metadata_columns_change(
     if os.path.exists(current_test_folder):
         shutil.rmtree(f"{current_test_folder}", ignore_errors=True)
 
-    os.makedirs(f"{current_test_folder}", mode=777)
+    os.makedirs(f"{current_test_folder}", mode=0o777)
 
     logger.info(
         f"Starting to write the sample deltadata into {current_test_folder}/delta_source"
@@ -1232,7 +1232,7 @@ def test_batch_file_source_delta_sink_append_with_source_schema(
     if os.path.exists(current_test_folder):
         shutil.rmtree(f"{current_test_folder}", ignore_errors=True)
 
-    os.makedirs(f"{current_test_folder}", mode=777)
+    os.makedirs(f"{current_test_folder}", mode=0o777)
 
     logger.info(
         f"Starting to write the sample data into {current_test_folder}/data_test.csv"
@@ -1318,7 +1318,7 @@ def test_batch_delta_source_delta_sink_append_select_columns_features(
     if os.path.exists(current_test_folder):
         shutil.rmtree(f"{current_test_folder}", ignore_errors=True)
 
-    os.makedirs(f"{current_test_folder}", mode=777)
+    os.makedirs(f"{current_test_folder}", mode=0o777)
 
     logger.info(
         f"Starting to write the sample deltadata into {current_test_folder}/delta_source"
@@ -1468,7 +1468,7 @@ def test_batch_delta_source_delta_sink_scd2_with_history_col(
     if os.path.exists(current_test_folder):
         shutil.rmtree(f"{current_test_folder}", ignore_errors=True)
 
-    os.makedirs(f"{current_test_folder}", mode=777)
+    os.makedirs(f"{current_test_folder}", mode=0o777)
 
     logger.info(
         f"Starting to write the sample deltadata into {current_test_folder}/delta_source"

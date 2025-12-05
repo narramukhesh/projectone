@@ -23,7 +23,7 @@ def setup_teardown():
     if os.path.exists(folder):
         shutil.rmtree(f"{folder}", ignore_errors=True)
 
-    os.makedirs(f"{folder}", mode=777)
+    os.makedirs(f"{folder}", mode=0o777)
     yield folder
     logger.info(f"""tearing down the integration test directory {folder}""")
     shutil.rmtree(f"{folder}", ignore_errors=True)

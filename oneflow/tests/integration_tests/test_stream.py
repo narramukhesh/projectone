@@ -39,7 +39,7 @@ def test_stream_delta_source_delta_sink_append(
     if os.path.exists(current_test_folder):
         shutil.rmtree(f"{current_test_folder}", ignore_errors=True)
 
-    os.makedirs(f"{current_test_folder}", mode=777)
+    os.makedirs(f"{current_test_folder}", mode=0o777)
 
     logger.info(
         f"Starting to write the sample deltadata into {current_test_folder}/delta_source"
@@ -125,7 +125,7 @@ def test_stream_delta_source_delta_sink_overwrite(
     if os.path.exists(current_test_folder):
         shutil.rmtree(f"{current_test_folder}", ignore_errors=True)
 
-    os.makedirs(f"{current_test_folder}", mode=777)
+    os.makedirs(f"{current_test_folder}", mode=0o777)
 
     logger.info(
         f"Starting to write the sample deltadata into {current_test_folder}/delta_source"
@@ -208,7 +208,7 @@ def test_stream_delta_source_delta_sink_scd1(
     if os.path.exists(current_test_folder):
         shutil.rmtree(f"{current_test_folder}", ignore_errors=True)
 
-    os.makedirs(f"{current_test_folder}", mode=777)
+    os.makedirs(f"{current_test_folder}", mode=0o777)
 
     logger.info(
         f"Starting to write the sample deltadata into {current_test_folder}/delta_source"
@@ -343,7 +343,7 @@ def test_stream_delta_source_delta_sink_scd2(
     if os.path.exists(current_test_folder):
         shutil.rmtree(f"{current_test_folder}", ignore_errors=True)
 
-    os.makedirs(f"{current_test_folder}", mode=777)
+    os.makedirs(f"{current_test_folder}", mode=0o777)
 
     logger.info(
         f"Starting to write the sample deltadata into {current_test_folder}/delta_source"
@@ -489,7 +489,7 @@ def test_stream_delta_source_delta_sink_scd3(
     if os.path.exists(current_test_folder):
         shutil.rmtree(f"{current_test_folder}", ignore_errors=True)
 
-    os.makedirs(f"{current_test_folder}", mode=777)
+    os.makedirs(f"{current_test_folder}", mode=0o777)
 
     logger.info(
         f"Starting to write the sample deltadata into {current_test_folder}/delta_source"
@@ -677,7 +677,7 @@ def test_stream_delta_source_delta_sink_append_schema_inference(
     if os.path.exists(current_test_folder):
         shutil.rmtree(f"{current_test_folder}", ignore_errors=True)
 
-    os.makedirs(f"{current_test_folder}", mode=777)
+    os.makedirs(f"{current_test_folder}", mode=0o777)
 
     logger.info(
         f"Starting to write the sample deltadata into {current_test_folder}/delta_source"
