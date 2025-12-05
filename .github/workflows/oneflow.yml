@@ -70,6 +70,8 @@ jobs:
     if: (!startsWith(github.event.head_commit.committer.name, 'semantic-release-projectone')) && contains( github.ref, 'main') && needs.path_filters.outputs.oneflow == 'true'
     steps:
       - uses: actions/checkout@v4
+        with:
+            token: ${{ secrets.PAT_FOR_WORKFLOW }}
       - uses: hashicorp/setup-terraform@v3
       - uses: actions/setup-node@v6
         with:
@@ -147,6 +149,8 @@ jobs:
     needs: [path_filters,oneflow_framework_test]
     steps:
       - uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.PAT_FOR_WORKFLOW }}
       - uses: actions/setup-node@v6
         with:
           node-version: '22.x'
