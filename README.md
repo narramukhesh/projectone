@@ -9,9 +9,9 @@ To start Contributing, Please check the [Contributing.md](./CONTRIBUTING.md)
 
 **Connectors** : This folder contains all external connectors specific implementation, please check further details on connector specific documentation linked with connectors folder README.md files
 
-**OneFlow** : This folder contains the data engineering design implementation with all data ingestion patterns, utilities. To learn more, Please follow the [link](./oneflow/README.md)
+**ProjectOneflow** : This folder contains the data engineering design implementation with all data ingestion patterns, utilities. To learn more, Please follow the [link](./projectoneflow/README.md)
 
-**OneFlow-Framework** : This folder contains the data engineering framework implementation with different platform deployment, validation, running the pipelines. To learn more, Please follow the [link](./oneflow-framework/README.md) 
+**ProjectOneflow-Framework** : This folder contains the data engineering framework implementation with different platform deployment, validation, running the pipelines. To learn more, Please follow the [link](./projectoneflow-framework/README.md) 
 
 **.precommit-config.yaml**: This file has pre commit hooks configuration
 
