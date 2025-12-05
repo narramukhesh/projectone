@@ -96,7 +96,7 @@ jobs:
             python -m pip install -r environment/requirements.txt
             python -m pip install python-semantic-release
             semantic-release version
-            cp -r -f oneflow /tmp/oneflow
+            cp -r -f ../oneflow /tmp/oneflow
             cd /tmp/oneflow
             python -m build --sdist
             python -m pip install twine
