@@ -1,6 +1,6 @@
 from pydantic import BaseModel, ConfigDict, Field
 from typing import Any, List, Dict, Type, Optional
-from oneflow.core.types import C
+from projectoneflow.core.types import C
 from enum import Enum
 
 

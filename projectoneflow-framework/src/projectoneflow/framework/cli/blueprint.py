@@ -1,4 +1,4 @@
-from oneflow.core.cli import CliGroup
+from projectoneflow.core.cli import CliGroup
 import argparse
 import colorlog
 import sys
@@ -127,7 +127,7 @@ class GenerateTaskCliGroup(CliGroup):
         else:
             os.makedirs(contract_folder, mode=777, exist_ok=True)
         try:
-            module = importlib.import_module("oneflow.framework.contract.config")
+            module = importlib.import_module("projectoneflow.framework.contract.config")
             contract_schema_cls = getattr(
                 module, f"{contract_type.lower().capitalize()}ContractSchema"
             )
@@ -190,7 +190,7 @@ class GenerateTaskCliGroup(CliGroup):
         else:
             os.makedirs(dataset_folder, mode=777, exist_ok=True)
         try:
-            module = importlib.import_module("oneflow.framework.contract.config")
+            module = importlib.import_module("projectoneflow.framework.contract.config")
             dataset_schema_cls = getattr(
                 module, f"{dataset_type.lower().capitalize()}ObjectSchema"
             )
@@ -320,8 +320,8 @@ class GenerateTaskCliGroup(CliGroup):
         target_directory:str
             target directory to where the pipeline template is saved into
         """
-        from oneflow.core.schemas.deploy import PipelineTaskTypes, PipelineCluster
-        from oneflow.core.schemas.sources import (
+        from projectoneflow.core.schemas.deploy import PipelineTaskTypes, PipelineCluster
+        from projectoneflow.core.schemas.sources import (
             SparkSource,
             SparkSourceExtractType,
             SparkSourceType,
@@ -329,8 +329,8 @@ class GenerateTaskCliGroup(CliGroup):
             SinkType,
             WriteType,
         )
-        from oneflow.core.sources import SourceProxy
-        from oneflow.core.schemas.execution import SparkExecutionTypes
+        from projectoneflow.core.sources import SourceProxy
+        from projectoneflow.core.schemas.execution import SparkExecutionTypes
 
         target_directory = "./" if target_directory is None else target_directory
         tobe_dir = os.path.join(os.path.abspath(target_directory), pipeline_name)

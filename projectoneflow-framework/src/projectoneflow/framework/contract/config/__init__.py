@@ -1,30 +1,30 @@
-from oneflow.core.schemas.data_objects import Table, Schema, View, Volume, VolumeFile
-from oneflow.core.schemas.deploy import (
+from projectoneflow.core.schemas.data_objects import Table, Schema, View, Volume, VolumeFile
+from projectoneflow.core.schemas.deploy import (
     PipelineTypes,
     SparkPipelineConfig,
     SparkTask,
     SparkPipelineTask,
     ResourceLifecycle,
 )
-from oneflow.core.schemas import ParentModel, ParentEnum
-from oneflow.core.exception.deploy import PipelineConfigurationError
+from projectoneflow.core.schemas import ParentModel, ParentEnum
+from projectoneflow.core.exception.deploy import PipelineConfigurationError
 from typing import Optional, List, Any, Union, Dict
 from pydantic import Field, model_validator
-from oneflow.framework.contract.env import (
+from projectoneflow.framework.contract.env import (
     LocalEnvironment,
     Environment,
     format_environment_variables,
     ProjectEnvironment,
 )
-from oneflow.framework.exception.contract import (
+from projectoneflow.framework.exception.contract import (
     DatabricksCredentialsValidationError,
     DataObjectPatternMismatch,
     SelectedProjectObjectDoesnotExist,
 )
 import re
 
-DATABRICKS_DEPLOY_ARTIFACT_PATH = "/FileStore/.oneflow"
-DATABRICKS_DEPLOY_WORKSPACE_PATH = "/Shared/.oneflow"
+DATABRICKS_DEPLOY_ARTIFACT_PATH = "/FileStore/.projectoneflow"
+DATABRICKS_DEPLOY_WORKSPACE_PATH = "/Shared/.projectoneflow"
 TASK_PARSE_PATTERN = r"\$\{tasks\.(.*)\}"
 PIPELINE_PARSE_PATTERN = r"\$\{pipelines\.(.*)\}"
 DATASET_PARSE_PATTERN = r"\$\{([\w\.]+)\.(.*)\.tables\.(.*)\}"

@@ -14,7 +14,7 @@ CDKTF_VERSION = "latest"
 
 
 class DFInstallCommand(sdist):
-    """This class set the installation for the oneflow package"""
+    """This class set the installation for the projectoneflow package"""
 
     def run(self):
 
@@ -23,8 +23,8 @@ class DFInstallCommand(sdist):
         ):
             os.chdir(Path(__file__).parent.absolute())
 
-        temp_dir = os.path.join(tempfile.gettempdir(), "oneflow_confluent_provider")
-        external_dir = f"{Path(__file__).parent.absolute()}/src/oneflow/core/external"
+        temp_dir = os.path.join(tempfile.gettempdir(), "projectoneflow_confluent_provider")
+        external_dir = f"{Path(__file__).parent.absolute()}/src/projectoneflow/core/external"
 
         if os.path.exists(temp_dir):
             shutil.rmtree(temp_dir,ignore_errors=True)

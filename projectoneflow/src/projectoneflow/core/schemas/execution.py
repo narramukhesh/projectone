@@ -1,8 +1,8 @@
-from oneflow.core.schemas import ParentModel, ParentEnum
+from projectoneflow.core.schemas import ParentModel, ParentEnum
 from pydantic import Field, ConfigDict, model_validator
-from oneflow.core.schemas.features import ExecutionFeatureOptions
+from projectoneflow.core.schemas.features import ExecutionFeatureOptions
 from typing import Dict, Any, Optional, Union, List
-from oneflow.core.schemas.event import SubscribedEvent
+from projectoneflow.core.schemas.event import SubscribedEvent
 
 
 class SparkExecutionTypes(ParentEnum):

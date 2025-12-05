@@ -1,6 +1,6 @@
-from oneflow.core.cli import CliGroup
+from projectoneflow.core.cli import CliGroup
 import argparse
-from oneflow.core.deploy.terraform.cli import TerraformDeployCliGroup
+from projectoneflow.core.deploy.terraform.cli import TerraformDeployCliGroup
 
 
 class DeployCliGroup(CliGroup):
@@ -25,9 +25,9 @@ class DeployCliGroup(CliGroup):
         """This method initializes the terraform command"""
 
         terraform_parser = self.sub_parser.add_parser(
-            prog="oneflow deploy terraform",
+            prog="projectoneflow deploy terraform",
             name="terraform",
-            usage="""oneflow [global options] deploy terraform <args>
+            usage="""projectoneflow [global options] deploy terraform <args>
 
         This commands executes the resiurces deployment using terraform execution in target environment
         """,

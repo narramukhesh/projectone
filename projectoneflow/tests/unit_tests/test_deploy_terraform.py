@@ -1,4 +1,4 @@
-from oneflow.core.schemas.deploy import (
+from projectoneflow.core.schemas.deploy import (
     SparkPipelineConfig,
     SparkTask,
     SparkPipelineTask,
@@ -6,7 +6,7 @@ from oneflow.core.schemas.deploy import (
     DatabricksDeployConfig,
 )
 from cdktf import Testing, TerraformStack
-from oneflow.core.deploy.terraform import TerraformComponent
+from projectoneflow.core.deploy.terraform import TerraformComponent
 from cdktf_cdktf_provider_databricks.job import Job
 
 

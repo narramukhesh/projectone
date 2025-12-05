@@ -1,14 +1,14 @@
 from azure.identity import DefaultAzureCredential
 from azure.storage.blob import BlobServiceClient, BlobClient, BlobLeaseClient
-from oneflow.core.schemas import ParentModel
+from projectoneflow.core.schemas import ParentModel
 from typing import Optional
 from pydantic import Field, model_validator, ConfigDict
-from oneflow.framework.exception.connector import (
+from projectoneflow.framework.exception.connector import (
     AzureBlobCredentialsError,
     AzureBlobConnectorInitError,
     AzureBlobLockAlreadyExists,
 )
-from oneflow.core.utils import create_parent_folder
+from projectoneflow.core.utils import create_parent_folder
 import os
 import io
 import uuid

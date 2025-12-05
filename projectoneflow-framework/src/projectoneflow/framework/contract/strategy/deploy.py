@@ -2,8 +2,8 @@ from typing import List, Dict, Any, Optional
 import os
 import re
 from pydantic import Field
-from oneflow.core.schemas import ParentEnum
-from oneflow.core.schemas.deploy import (
+from projectoneflow.core.schemas import ParentEnum
+from projectoneflow.core.schemas.deploy import (
     PipelineTypes,
     PipelineTaskTypes,
     DatabricksDeployConfig,
@@ -13,7 +13,7 @@ from oneflow.core.schemas.deploy import (
     PipelineArtifactsDeployConfig,
     SparkTaskLibraries,
 )
-from oneflow.framework.contract.strategy import (
+from projectoneflow.framework.contract.strategy import (
     DeployStateResult,
     DeployStrategy,
     DeployApplyOutput,
@@ -22,9 +22,9 @@ from oneflow.framework.contract.strategy import (
     DeployInitOutput,
 )
 import shutil
-from oneflow.core.deploy.terraform import TerraformComponent
-from oneflow.core.deploy.terraform.databricks import DatabricksStack
-from oneflow.framework.connector.azure_blob import (
+from projectoneflow.core.deploy.terraform import TerraformComponent
+from projectoneflow.core.deploy.terraform.databricks import DatabricksStack
+from projectoneflow.framework.connector.azure_blob import (
     AzureBlobConnector,
     AzureBlobCredentials,
 )
@@ -32,30 +32,30 @@ import tempfile
 from cdktf import App
 import subprocess
 import uuid
-from oneflow.core.schemas.deploy import (
+from projectoneflow.core.schemas.deploy import (
     VolumeDeployConfig,
     SchemaDeployConfig,
     DataObjectDeployConfig,
     ResourceLifecycle,
 )
-from oneflow.framework.contract.config import SelectObject, EXTERNAL_FILES_VOLUME_NAME
-from oneflow.framework.contract.config import DATABRICKS_DEPLOY_WORKSPACE_PATH
-from oneflow.framework.exception.deploy import (
+from projectoneflow.framework.contract.config import SelectObject, EXTERNAL_FILES_VOLUME_NAME
+from projectoneflow.framework.contract.config import DATABRICKS_DEPLOY_WORKSPACE_PATH
+from projectoneflow.framework.exception.deploy import (
     TerraformActionFetchError,
     TerrafromStatePushError,
     TerrafromStatePullError,
 )
-from oneflow.framework.exception.contract import DeployDetailsMissingError
-from oneflow.framework.contract.env import Environment, EnvironmentMode
-from oneflow.framework.connector.databricks import DatabricksConnector
+from projectoneflow.framework.exception.contract import DeployDetailsMissingError
+from projectoneflow.framework.contract.env import Environment, EnvironmentMode
+from projectoneflow.framework.connector.databricks import DatabricksConnector
 import json
-from oneflow.framework.utils import is_windows_path, remove_color_codes
-from oneflow.core.schemas.refresh import TaskRefreshTypes as SparkTaskRefreshTypes
-from oneflow.core.utils import create_parent_folder
+from projectoneflow.framework.utils import is_windows_path, remove_color_codes
+from projectoneflow.core.schemas.refresh import TaskRefreshTypes as SparkTaskRefreshTypes
+from projectoneflow.core.utils import create_parent_folder
 
 environment = Environment()
 DEFAULT_STATE_FILE_NAME = "terraform-test.tfstate"
-DEFAULT_TERRAFORM_STATE_LOCK_KEY_NAME = "oneflowframeworkstatelockid"
+DEFAULT_TERRAFORM_STATE_LOCK_KEY_NAME = "projectoneflowframeworkstatelockid"
 
 
 class TerraformStateTypes(ParentEnum):
@@ -369,11 +369,11 @@ class TerraformDeployStrategy(DeployStrategy):
         """This setup step creates the directory in target location"""
         if terraform_dir is None:
             terraform_dir = os.path.join(
-                tempfile.gettempdir(), ".oneflow", self.contract.project_name
+                tempfile.gettempdir(), ".projectoneflow", self.contract.project_name
             )
         else:
             terraform_dir = os.path.join(
-                os.path.abspath(terraform_dir), ".oneflow", self.contract.project_name
+                os.path.abspath(terraform_dir), ".projectoneflow", self.contract.project_name
             )
 
         if not os.path.exists(terraform_dir):

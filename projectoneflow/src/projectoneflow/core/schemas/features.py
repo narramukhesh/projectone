@@ -1,13 +1,13 @@
-from oneflow.core.schemas import ParentEnum, ParentModel
+from projectoneflow.core.schemas import ParentEnum, ParentModel
 from pydantic import Field, model_validator
 from typing import Optional, Union
-from oneflow.core.exception.validation import (
+from projectoneflow.core.exception.validation import (
     CreateTableValidationError,
     SchemaInferenceFromRegistryError,
     CreateDataObjectValidationError,
     ChangeDataFeatureTypeParseError,
 )
-from oneflow.core.schemas.data_objects import Table, View
+from projectoneflow.core.schemas.data_objects import Table, View
 
 
 class Feature(ParentModel):

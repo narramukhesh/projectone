@@ -1,1 +1,1 @@
-from oneflow.core.task.spark.task import SparkTask
+from projectoneflow.core.task.spark.task import SparkTask

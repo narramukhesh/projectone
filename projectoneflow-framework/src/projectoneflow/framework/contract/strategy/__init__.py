@@ -1,4 +1,4 @@
-from oneflow.core.schemas import ParentModel, ParentEnum
+from projectoneflow.core.schemas import ParentModel, ParentEnum
 from typing import Protocol, runtime_checkable, List, Dict, Any, Optional
 from pydantic import Field
 

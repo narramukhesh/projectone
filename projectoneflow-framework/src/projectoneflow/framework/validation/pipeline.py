@@ -1,12 +1,12 @@
 from typing import Type, Tuple, Any, List
-from oneflow.core.types import C
-from oneflow.core.schemas.deploy import (
+from projectoneflow.core.types import C
+from projectoneflow.core.schemas.deploy import (
     PipelineConfig,
     PipelineTaskTypes,
     PipelineTypes,
 )
-from oneflow.core.schemas.execution import SparkExecutionTypes
-from oneflow.framework.validation import Run, Check, ResultEnum
+from projectoneflow.core.schemas.execution import SparkExecutionTypes
+from projectoneflow.framework.validation import Run, Check, ResultEnum
 import re
 import importlib
 import ast

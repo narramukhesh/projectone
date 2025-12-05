@@ -1,19 +1,19 @@
-from oneflow.core.schemas import ParentModel, ParentEnum
+from projectoneflow.core.schemas import ParentModel, ParentEnum
 from pydantic import Field, model_validator, ConfigDict
-from oneflow.core.schemas.input import SparkInput
-from oneflow.core.schemas.output import SparkOutput
-from oneflow.core.schemas.execution import SparkExecution
-from oneflow.core.schemas.refresh import TaskRefreshPolicy as SparkTaskRefreshPolicy
+from projectoneflow.core.schemas.input import SparkInput
+from projectoneflow.core.schemas.output import SparkOutput
+from projectoneflow.core.schemas.execution import SparkExecution
+from projectoneflow.core.schemas.refresh import TaskRefreshPolicy as SparkTaskRefreshPolicy
 from typing import Optional, List, Dict, Union, Any
 from datetime import datetime
-from oneflow.core.exception.deploy import (
+from projectoneflow.core.exception.deploy import (
     PipelineTaskLibraryResolutionError,
     PipelineConfigurationError,
     SparkTaskConfigurationError,
     TerraformBackendTypeNotSupported,
 )
-from oneflow.core.schemas.data_objects import Schema, Table, View, Volume, DataObject
-import oneflow.core as core
+from projectoneflow.core.schemas.data_objects import Schema, Table, View, Volume, DataObject
+import projectoneflow.core as core
 
 
 class PipelineRefreshPolicy(ParentModel):
@@ -96,7 +96,7 @@ class SparkTaskLibraries(ParentModel):
     """This is the schema definition of the databricks job tasks libraries"""
 
     type: str = Field("pypi", description="package type name of spark task")
-    package: str = Field("oneflow", description="package")
+    package: str = Field("projectoneflow", description="package")
     exclusion: Optional[str] = Field(
         None, description="package type name of spark task"
     )
@@ -109,7 +109,7 @@ class SparkTaskLibraries(ParentModel):
     def is_default(self):
         return (
             (self.type == "pypi")
-            and (self.package == "oneflow")
+            and (self.package == "projectoneflow")
         )
 
     @model_validator(mode="after")

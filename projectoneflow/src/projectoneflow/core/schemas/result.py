@@ -1,6 +1,6 @@
 import json
 from typing import Any
-from oneflow.core.schemas.state import ChangeFeatureValue
+from projectoneflow.core.schemas.state import ChangeFeatureValue
 
 
 class Result:

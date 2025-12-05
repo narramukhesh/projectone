@@ -1,19 +1,19 @@
-from oneflow.core.sources import SparkSource
+from projectoneflow.core.sources import SparkSource
 from typing import Optional, Any, Type
 from pydantic import Field
-from oneflow.core.schemas.refresh import TaskRefreshTypes as SparkTaskRefreshTypes
-from oneflow.core.schemas.sources import SparkSourceType
-from oneflow.core.schemas.features import ChangeDataFeatureType
-from oneflow.core.schemas.state import ChangeFeatureValue
-from oneflow.core.exception.sources import (
+from projectoneflow.core.schemas.refresh import TaskRefreshTypes as SparkTaskRefreshTypes
+from projectoneflow.core.schemas.sources import SparkSourceType
+from projectoneflow.core.schemas.features import ChangeDataFeatureType
+from projectoneflow.core.schemas.state import ChangeFeatureValue
+from projectoneflow.core.exception.sources import (
     DeltaSparkSourceCDCInitializationError,
     WriteFunctionNotImplementedError,
 )
 from delta import DeltaTable
-from oneflow.core.utils.delta import DeltaUtils
-from oneflow.core.types import F
+from projectoneflow.core.utils.delta import DeltaUtils
+from projectoneflow.core.types import F
 from pyspark.sql import SparkSession, DataFrame
-from oneflow.core.schemas.result import ChangeDataCaptureResult
+from projectoneflow.core.schemas.result import ChangeDataCaptureResult
 
 
 class DeltaSource(SparkSource):
@@ -54,7 +54,7 @@ class DeltaSource(SparkSource):
         write_type: str
             This will specify the write type to get the return write object
         """
-        from oneflow.core.execution.write import scd1, scd2, scd3, append, overwrite
+        from projectoneflow.core.execution.write import scd1, scd2, scd3, append, overwrite
 
         if write_type == "append":
             return append

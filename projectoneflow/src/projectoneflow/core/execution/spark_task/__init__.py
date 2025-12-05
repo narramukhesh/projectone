@@ -1,2 +1,2 @@
-from oneflow.core.execution.spark_task.context import SparkTaskExecutionContext
-from oneflow.core.execution.spark_task.execution_fn import SparkExecutionFunction
+from projectoneflow.core.execution.spark_task.context import SparkTaskExecutionContext
+from projectoneflow.core.execution.spark_task.execution_fn import SparkExecutionFunction

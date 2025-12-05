@@ -18,7 +18,7 @@ logger = logging.getLogger(__name__)
 
 @pytest.fixture(scope="module")
 def setup_teardown():
-    folder = f"{tempfile.gettempdir()}/pytests/oneflow/integration_tests/"
+    folder = f"{tempfile.gettempdir()}/pytests/projectoneflow/integration_tests/"
     logger.info(f"Setting up the integration_test tests folder at {folder}")
     if os.path.exists(folder):
         shutil.rmtree(f"{folder}", ignore_errors=True)

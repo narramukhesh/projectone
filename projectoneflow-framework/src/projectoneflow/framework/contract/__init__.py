@@ -1,7 +1,7 @@
-from oneflow.core.types import C
+from projectoneflow.core.types import C
 from typing import Type
-from oneflow.framework.exception.contract import ContractNotDefined
-from oneflow.core.schemas import ParentEnum
+from projectoneflow.framework.exception.contract import ContractNotDefined
+from projectoneflow.core.schemas import ParentEnum
 from typing import Protocol, runtime_checkable
 
 
@@ -31,7 +31,7 @@ class Contract(Protocol):
         """
 
         if contract_name == ContractType.project:
-            from oneflow.framework.contract.project import ProjectContract
+            from projectoneflow.framework.contract.project import ProjectContract
 
             return ProjectContract
         else:

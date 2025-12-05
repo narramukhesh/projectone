@@ -1,9 +1,9 @@
-from oneflow.framework.runner import PipelineRunner, JobOutput, TaskOutput
-from oneflow.framework.contract.config.objects import PipelineContractObject
-from oneflow.core.schemas import ParentEnum, ParentModel
-from oneflow.core.schemas.deploy import PipelineTaskTypes
-from oneflow.core.schemas.refresh import TaskRefreshTypes as SparkTaskRefreshTypes
-from oneflow.framework.exception.runner import LocalJobRunFetchError
+from projectoneflow.framework.runner import PipelineRunner, JobOutput, TaskOutput
+from projectoneflow.framework.contract.config.objects import PipelineContractObject
+from projectoneflow.core.schemas import ParentEnum, ParentModel
+from projectoneflow.core.schemas.deploy import PipelineTaskTypes
+from projectoneflow.core.schemas.refresh import TaskRefreshTypes as SparkTaskRefreshTypes
+from projectoneflow.framework.exception.runner import LocalJobRunFetchError
 from pydantic import Field
 import datetime
 import time
@@ -16,9 +16,9 @@ import tempfile
 import uuid
 import re
 from concurrent.futures import ProcessPoolExecutor, as_completed
-from oneflow.framework.contract.env import Environment
-from oneflow.framework.utils import remove_color_codes
-from oneflow.core.schemas.sources import SinkType
+from projectoneflow.framework.contract.env import Environment
+from projectoneflow.framework.utils import remove_color_codes
+from projectoneflow.core.schemas.sources import SinkType
 
 MAX_WORKERS = int(os.cpu_count() * (2 / 3))
 TASK_LOG_PATH = os.path.join(tempfile.gettempdir(), "tasks", "logs")
@@ -106,7 +106,7 @@ def task_executor(
     cmd = [
         "python",
         "-m",
-        "oneflow.core.task.cli",
+        "projectoneflow.core.task.cli",
         "--task_configuration",
         json.dumps(task_configuration),
         "--task_type",

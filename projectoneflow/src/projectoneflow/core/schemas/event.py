@@ -1,4 +1,4 @@
-from oneflow.core.schemas import ParentModel, ParentEnum, BaseCredentials
+from projectoneflow.core.schemas import ParentModel, ParentEnum, BaseCredentials
 from pydantic import Field
 from typing import Dict, List, Optional, Union
 

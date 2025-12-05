@@ -3,10 +3,10 @@ from pyspark.storagelevel import StorageLevel
 from delta import DeltaTable
 import pyspark.sql.functions as F
 from pyspark.sql.window import Window
-from oneflow.core.exception.execution import WriteTableConstraintError
-from oneflow.core.exception.execution import WriteTypeAttributesError
-from oneflow.core.utils.delta import DeltaUtils
-from oneflow.core.observability import Logger
+from projectoneflow.core.exception.execution import WriteTableConstraintError
+from projectoneflow.core.exception.execution import WriteTypeAttributesError
+from projectoneflow.core.utils.delta import DeltaUtils
+from projectoneflow.core.observability import Logger
 from functools import reduce
 from copy import deepcopy
 

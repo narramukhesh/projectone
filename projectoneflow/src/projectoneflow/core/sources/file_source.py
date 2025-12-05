@@ -1,22 +1,22 @@
-from oneflow.core.sources import SparkSource
+from projectoneflow.core.sources import SparkSource
 from typing import Optional, Any, Type, List, Union, Dict
 from pydantic import Field, model_validator
-from oneflow.core.types import F, C
-from oneflow.core.schemas.refresh import TaskRefreshTypes as SparkTaskRefreshTypes
-from oneflow.core.exception.sources import FileSourceCredentialsValidationError
-from oneflow.core.schemas.state import ChangeFeatureValue
-from oneflow.core.schemas.sources import (
+from projectoneflow.core.types import F, C
+from projectoneflow.core.schemas.refresh import TaskRefreshTypes as SparkTaskRefreshTypes
+from projectoneflow.core.exception.sources import FileSourceCredentialsValidationError
+from projectoneflow.core.schemas.state import ChangeFeatureValue
+from projectoneflow.core.schemas.sources import (
     SparkSourceType,
     FileSourceType,
     FileSourceCredentials,
     FileCompression,
 )
-from oneflow.core.schemas.result import ChangeDataCaptureResult
-from oneflow.core.schemas.features import (
+from projectoneflow.core.schemas.result import ChangeDataCaptureResult
+from projectoneflow.core.schemas.features import (
     ChangeDataFeatureType,
     PostTaskExecutionFeature,
 )
-from oneflow.core.exception.sources import (
+from projectoneflow.core.exception.sources import (
     FileSparkSourceCDCInitializationError,
     WriteFunctionNotImplementedError,
     SharepointRequestException,
@@ -24,10 +24,10 @@ from oneflow.core.exception.sources import (
     SFTPRequestException,
     NoSourceData,
 )
-from oneflow.core.observability.logging import Logger
+from projectoneflow.core.observability.logging import Logger
 from pyspark.sql import SparkSession, DataFrame
-from oneflow.core.utils import remove_folder, DateUtils
-from oneflow.core.runtime import Runtime
+from projectoneflow.core.utils import remove_folder, DateUtils
+from projectoneflow.core.runtime import Runtime
 import msal
 from office365.graph_client import GraphClient
 import pandas as pd
@@ -608,7 +608,7 @@ class FileSource(SparkSource):
         write_type: str
             This will specify the write type to get the return write object
         """
-        from oneflow.core.execution.write import append, overwrite
+        from projectoneflow.core.execution.write import append, overwrite
 
         if write_type == "append":
             return append

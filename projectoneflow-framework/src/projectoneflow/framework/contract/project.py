@@ -1,31 +1,31 @@
 import os
-from oneflow.framework.contract.env import (
+from projectoneflow.framework.contract.env import (
     EnvTypes,
     format_environment_variables,
 )
-from oneflow.framework.validation import Run, Check, ResultEnum
+from projectoneflow.framework.validation import Run, Check, ResultEnum
 
-from oneflow.framework.exception.contract import (
+from projectoneflow.framework.exception.contract import (
     ProjectContractNotExists,
     ProjectConfigValidationError,
     ProjectArtifactCreationError,
     DeployStrategyDoesnotExist,
 )
-from oneflow.framework.contract.config import (
+from projectoneflow.framework.contract.config import (
     ProjectContractSchema,
     SelectObject,
     DeploySchema,
 )
-from oneflow.framework.contract.config.objects import (
+from projectoneflow.framework.contract.config.objects import (
     DatasetContractObject,
     PipelinesContractObject,
 )
-from oneflow.core.utils import read_json_file
-from oneflow.framework.contract import Contract
+from projectoneflow.core.utils import read_json_file
+from projectoneflow.framework.contract import Contract
 import subprocess
-from oneflow.framework.utils import is_windows
-from oneflow.framework.contract.env import Environment
-from oneflow.framework.contract.strategy import DeployStrategyTypes
+from projectoneflow.framework.utils import is_windows
+from projectoneflow.framework.contract.env import Environment
+from projectoneflow.framework.contract.strategy import DeployStrategyTypes
 
 
 class ProjectContract(Contract):
@@ -109,7 +109,7 @@ class ProjectContract(Contract):
         project_parent_location = pathlib.Path(self.project_location).resolve().parent
 
         deploy_directory = os.path.join(
-            tempfile.gettempdir(), ".oneflow", "deploy", self.environment.value
+            tempfile.gettempdir(), ".projectoneflow", "deploy", self.environment.value
         )
         project_deploy_directory = os.path.join(deploy_directory, "project")
         if not os.path.exists(project_deploy_directory):
@@ -238,7 +238,7 @@ include_package_data=True,
         """
         This method deploys the provided pipeline in target location
         """
-        from oneflow.framework.contract.strategy.deploy import TerraformDeployStrategy
+        from projectoneflow.framework.contract.strategy.deploy import TerraformDeployStrategy
 
         if (self.environment != EnvTypes.local) and (
             Environment().OF_DEPLOY_STRATEGY == DeployStrategyTypes.terraform

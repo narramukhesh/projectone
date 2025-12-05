@@ -1,5 +1,5 @@
-from oneflow.core.observability.logging import Logger
-from oneflow.core.types import CO
+from projectoneflow.core.observability.logging import Logger
+from projectoneflow.core.types import CO
 from typing import Type, Any
 import json
 from datetime import datetime

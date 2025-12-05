@@ -1,5 +1,5 @@
 import requests
-from oneflow.framework.exception.ci import GitLabRequestException
+from projectoneflow.framework.exception.ci import GitLabRequestException
 
 
 class GitLabClient:

@@ -1,6 +1,6 @@
-OneFlow-Framework
+ProjectOneflow-Framework
 ============
-OneFlow-Framework Package is wrapper over the oneflow package which provides all data ingestion patterns
+ProjectOneflow-Framework Package is wrapper over the projectoneflow package which provides all data ingestion patterns
 ​
 
 Quick Start
@@ -15,7 +15,7 @@ To install the package:
 1. Run the below code to install the code 
 ​
     ```shell
-    pip install oneflow-framework
+    pip install projectoneflow-framework
     ```
 Basic Idea
 ------------------------
@@ -145,6 +145,6 @@ stored
 
 **OF_DATABRICKS_SECRET_SCOPE:** Secret scope environment variable used to specify for the environment specific databricks secret scope
 
-**OF_DEPLOY_CORE_PACKAGE_PATH:** This is used to specify the library/path where oneflow-framework uses to run the pipeline, by default oneflow is taken but if you want untested version of oneflow, you can specify it here.
+**OF_DEPLOY_CORE_PACKAGE_PATH:** This is used to specify the library/path where projectoneflow-framework uses to run the pipeline, by default projectoneflow is taken but if you want untested version of projectoneflow, you can specify it here.
 
 **OF_DEPLOY_CORE_PACKAGE_TYPE:** Type to be specified by default this should be specified with `whl`, if you specify the `OF_DEPLOY_CORE_PACKAGE_PATH` and this variable also need to defined

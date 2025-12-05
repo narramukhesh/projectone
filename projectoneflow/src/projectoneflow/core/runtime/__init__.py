@@ -1,5 +1,5 @@
-from oneflow.core.utils.patterns import Singleton
-from oneflow.core.observability.logging import Logger
+from projectoneflow.core.utils.patterns import Singleton
+from projectoneflow.core.observability.logging import Logger
 import threading
 
 logger = Logger.get_logger(__name__)

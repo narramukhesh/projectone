@@ -2,16 +2,16 @@ import pandas as pd
 import logging
 import os
 import shutil
-from oneflow.core.task.spark import SparkTask
-from oneflow.core.schemas.input import SparkInput
-from oneflow.core.schemas.output import SparkOutput
-from oneflow.core.schemas.sources import (
+from projectoneflow.core.task.spark import SparkTask
+from projectoneflow.core.schemas.input import SparkInput
+from projectoneflow.core.schemas.output import SparkOutput
+from projectoneflow.core.schemas.sources import (
     WriteOptions,
     WriteExtraOptions,
     WriteExtraOptions,
     ReadOptions,
 )
-from oneflow.core.schemas.features import (
+from projectoneflow.core.schemas.features import (
     CreateDataObjectIfNotExists,
     OutputFeatureOptions,
     InputFeatureOptions,
@@ -21,8 +21,8 @@ from oneflow.core.schemas.features import (
     DropColumnsFeature,
     SelectColumnsFeature,
 )
-from oneflow.core.schemas.data_objects import Table
-from oneflow.core.schemas.execution import SparkExecution
+from projectoneflow.core.schemas.data_objects import Table
+from projectoneflow.core.schemas.execution import SparkExecution
 from pyspark.sql import DataFrame
 import pyspark.sql.functions as F
 import json
@@ -764,7 +764,7 @@ def test_batch_delta_source_delta_sink_append_cdc(
     """
     This test used for validation of delta file read and writing to delta target with append write operation
     """
-    from oneflow.core.utils.spark import from_json
+    from projectoneflow.core.utils.spark import from_json
 
     current_test_folder = (
         f"{setup_teardown}/test_batch_delta_source_delta_sink_append_cdc"
@@ -909,7 +909,7 @@ def test_batch_delta_source_delta_sink_append_all_features(
     """
     This test used for validation of delta file read and writing to delta target with append write operation which tests all features
     """
-    from oneflow.core.utils.spark import from_json
+    from projectoneflow.core.utils.spark import from_json
 
     current_test_folder = (
         f"{setup_teardown}/test_batch_delta_source_delta_sink_append_all_features"
@@ -1311,7 +1311,7 @@ def test_batch_delta_source_delta_sink_append_select_columns_features(
     """
     This test used for validation of delta file read and writing to delta target with append write operation which tests all features
     """
-    from oneflow.core.utils.spark import from_json
+    from projectoneflow.core.utils.spark import from_json
 
     current_test_folder = f"{setup_teardown}/test_batch_delta_source_delta_sink_append_select_columns_features"
 

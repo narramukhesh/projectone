@@ -2,8 +2,8 @@ from delta import DeltaTable
 from pyspark.sql import SparkSession
 import pyspark.sql.functions as F
 import pyspark.sql.types as T
-from oneflow.core.schemas.data_objects import TableColumnSchema
-from oneflow.core.exception.sources import ColumnTypeParsingError
+from projectoneflow.core.schemas.data_objects import TableColumnSchema
+from projectoneflow.core.exception.sources import ColumnTypeParsingError
 from typing import Dict, List
 
 

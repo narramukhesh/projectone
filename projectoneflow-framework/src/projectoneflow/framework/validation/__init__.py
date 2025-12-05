@@ -1,4 +1,4 @@
-from oneflow.core.schemas import ParentModel, ParentEnum
+from projectoneflow.core.schemas import ParentModel, ParentEnum
 from typing import List, Optional
 from pydantic import Field
 from uuid import UUID, uuid4

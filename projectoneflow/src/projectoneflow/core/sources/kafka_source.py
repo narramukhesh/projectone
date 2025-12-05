@@ -1,13 +1,13 @@
-from oneflow.core.sources import SparkSource
+from projectoneflow.core.sources import SparkSource
 from typing import Optional
 from pydantic import Field
-from oneflow.core.schemas.result import OutputResult
+from projectoneflow.core.schemas.result import OutputResult
 from pyspark.sql import SparkSession, DataFrame
 from pyspark.sql.streaming.query import StreamingQuery
-from oneflow.core.schemas.sources import SparkSourceType
+from projectoneflow.core.schemas.sources import SparkSourceType
 from typing import Type
-from oneflow.core.types import F
-from oneflow.core.exception.sources import WriteFunctionNotImplementedError
+from projectoneflow.core.types import F
+from projectoneflow.core.exception.sources import WriteFunctionNotImplementedError
 
 
 class KafkaSource(SparkSource):
@@ -161,7 +161,7 @@ class KafkaSource(SparkSource):
         write_type: str
             This will specify the write type to get the return write object
         """
-        from oneflow.core.execution.write import append
+        from projectoneflow.core.execution.write import append
 
         if write_type == "append":
             return append

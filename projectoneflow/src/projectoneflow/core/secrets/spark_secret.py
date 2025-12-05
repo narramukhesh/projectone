@@ -1,10 +1,10 @@
-from oneflow.core.secrets import SecretManager
-from oneflow.core.utils.spark import is_in_databricks_runtime
+from projectoneflow.core.secrets import SecretManager
+from projectoneflow.core.utils.spark import is_in_databricks_runtime
 from pyspark.sql import SparkSession
 from functools import partial
 import json
-from oneflow.core.exception.validation import SecretManagerInitializationError
-from oneflow.core.exception.execution import SecretManagerFetchFailedError
+from projectoneflow.core.exception.validation import SecretManagerInitializationError
+from projectoneflow.core.exception.execution import SecretManagerFetchFailedError
 
 SECRETS_PATTERN = r"\{\{[\w\-]+/[\w\-]+\}\}"
 

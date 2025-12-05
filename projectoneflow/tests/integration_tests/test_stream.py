@@ -2,19 +2,19 @@ import pandas as pd
 import logging
 import os
 import shutil
-from oneflow.core.task.spark import SparkTask
-from oneflow.core.schemas.input import SparkInput
-from oneflow.core.schemas.output import SparkOutput
-from oneflow.core.schemas.sources import WriteOptions
-from oneflow.core.schemas.features import (
+from projectoneflow.core.task.spark import SparkTask
+from projectoneflow.core.schemas.input import SparkInput
+from projectoneflow.core.schemas.output import SparkOutput
+from projectoneflow.core.schemas.sources import WriteOptions
+from projectoneflow.core.schemas.features import (
     CreateDataObjectIfNotExists,
     OutputFeatureOptions,
     InputFeatureOptions,
     SchemaInferenceFromRegistry,
 )
-from oneflow.core.schemas.data_objects import Table
-from oneflow.core.schemas.execution import SparkExecution
-from oneflow.core.schemas.refresh import TaskRefreshPolicy as SparkTaskRefreshPolicy
+from projectoneflow.core.schemas.data_objects import Table
+from projectoneflow.core.schemas.execution import SparkExecution
+from projectoneflow.core.schemas.refresh import TaskRefreshPolicy as SparkTaskRefreshPolicy
 from pyspark.sql import DataFrame
 from pyspark.testing.utils import assertSchemaEqual, assertDataFrameEqual
 
@@ -668,7 +668,7 @@ def test_stream_delta_source_delta_sink_append_schema_inference(
     """
     from datetime import datetime
     import json
-    from oneflow.core.utils.spark import from_json
+    from projectoneflow.core.utils.spark import from_json
 
     current_test_folder = (
         f"{setup_teardown}/test_stream_delta_source_delta_sink_append_schema_inference"

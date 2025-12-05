@@ -15,8 +15,8 @@ from pyspark.sql.types import (
 )
 from pyspark.sql.column import Column
 from pyspark.sql import SparkSession
-from oneflow.core.schemas.features import SchemaRegistryType
-from oneflow.core.exception import SchemaRegistryRequestParsingError
+from projectoneflow.core.schemas.features import SchemaRegistryType
+from projectoneflow.core.exception import SchemaRegistryRequestParsingError
 import json
 import os
 import re

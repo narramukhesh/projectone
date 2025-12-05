@@ -1,9 +1,9 @@
-from oneflow.core.schemas import ParentEnum, ParentModel, BaseCredentials
+from projectoneflow.core.schemas import ParentEnum, ParentModel, BaseCredentials
 from typing import Optional, Dict, Any, List
 from pydantic import Field, ConfigDict, computed_field, model_validator
-from oneflow.core.exception.sources import FileSourceCredentialsValidationError
-from oneflow.core.utils import extract_zip_file
-from oneflow.core.exception.sources import SourceSchemaError
+from projectoneflow.core.exception.sources import FileSourceCredentialsValidationError
+from projectoneflow.core.utils import extract_zip_file
+from projectoneflow.core.exception.sources import SourceSchemaError
 from pyspark.sql import SparkSession
 from pyspark.sql.types import _parse_datatype_string
 
@@ -162,7 +162,7 @@ class WriteExtraOptions(ParentModel):
     )
     stage_results: Optional[bool] = Field(
         False,
-        description="boolean to local checkpoint and truncate the oneflow lineage the dataset for faster computation",
+        description="boolean to local checkpoint and truncate the projectoneflow lineage the dataset for faster computation",
     )
     deduplicate_onkeys: Optional[bool] = Field(
         False,

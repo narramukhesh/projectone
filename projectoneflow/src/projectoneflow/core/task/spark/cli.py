@@ -4,10 +4,10 @@ import argparse
 import logging
 import json
 import colorlog.escape_codes
-from oneflow.core.schemas.deploy import SparkTask as SparkTaskSchema
-from oneflow.core.cli import CliGroup
-from oneflow.core.task.spark import SparkTask
-from oneflow.core.observability import Logger
+from projectoneflow.core.schemas.deploy import SparkTask as SparkTaskSchema
+from projectoneflow.core.cli import CliGroup
+from projectoneflow.core.task.spark import SparkTask
+from projectoneflow.core.observability import Logger
 import sys
 from pydantic import ValidationError
 import colorlog
@@ -35,9 +35,9 @@ class SparkTaskCliGroup(CliGroup):
         """This method initializes the spark command"""
 
         run_parser = self.sub_parser.add_parser(
-            prog="oneflow task spark run",
+            prog="projectoneflow task spark run",
             name="run",
-            help="Execute the spark oneflow task in local/databricks environment",
+            help="Execute the spark projectoneflow task in local/databricks environment",
         )
         run_parser.add_argument(
             "-d",
@@ -53,9 +53,9 @@ class SparkTaskCliGroup(CliGroup):
             help="Json String/file to be passed to configure spark task and execute",
         )
         validate_parser = self.sub_parser.add_parser(
-            prog="oneflow task spark validate",
+            prog="projectoneflow task spark validate",
             name="validate",
-            help="Checks/Validates the spark oneflow task configuration",
+            help="Checks/Validates the spark projectoneflow task configuration",
         )
         validate_parser.add_argument(
             "-t",
@@ -129,7 +129,7 @@ class SparkTaskCliGroup(CliGroup):
         task_config:str
             spark task configuration to be parsed and executed
         debug:bool
-            whether to execute the oneflow task execution in debug mode
+            whether to execute the projectoneflow task execution in debug mode
         """
 
         if debug:

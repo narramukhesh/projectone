@@ -1,41 +1,41 @@
-from oneflow.framework.cli.blueprint import BlueprintCliGroup
-from oneflow.core.cli import CliGroup
-from oneflow.core.cli import CommandParser
-from oneflow.framework.ci.cli import CICliGroup
-from oneflow.framework.contract.env import EnvTypes
-from oneflow.framework.contract import ContractType
-from oneflow.framework.validation import Run, ResultEnum
-from oneflow.framework.runner.databricks import DatabricksRunner
-from oneflow.framework.runner.local import LocalRunner
-from oneflow.core.schemas.deploy import (
+from projectoneflow.framework.cli.blueprint import BlueprintCliGroup
+from projectoneflow.core.cli import CliGroup
+from projectoneflow.core.cli import CommandParser
+from projectoneflow.framework.ci.cli import CICliGroup
+from projectoneflow.framework.contract.env import EnvTypes
+from projectoneflow.framework.contract import ContractType
+from projectoneflow.framework.validation import Run, ResultEnum
+from projectoneflow.framework.runner.databricks import DatabricksRunner
+from projectoneflow.framework.runner.local import LocalRunner
+from projectoneflow.core.schemas.deploy import (
     InfraStateBackendType,
     InfraStateBackendConfig,
     PipelineTypes,
 )
-from oneflow.framework.contract.env import Environment, EnvironmentMode
-from oneflow.framework.contract import Contract
-from oneflow.framework.cli import CliOutput, CliOutTypes, FormattingTable
-from oneflow.framework.contract.config import SelectObject
-from oneflow.framework.exception.contract import DataObjectPatternMismatch
-import oneflow.framework as framework
+from projectoneflow.framework.contract.env import Environment, EnvironmentMode
+from projectoneflow.framework.contract import Contract
+from projectoneflow.framework.cli import CliOutput, CliOutTypes, FormattingTable
+from projectoneflow.framework.contract.config import SelectObject
+from projectoneflow.framework.exception.contract import DataObjectPatternMismatch
+import projectoneflow.framework as framework
 from rich import box
 from rich.console import Console
 import tempfile
 import os
 import uuid
 import sys
-from oneflow.core.utils import replace_special_symbols
-from oneflow.framework.utils import delete_file_if_exists
+from projectoneflow.core.utils import replace_special_symbols
+from projectoneflow.framework.utils import delete_file_if_exists
 
 
 console = Console()
 
 
-class OneFlowFrameworkCli:
+class ProjectOneflowFrameworkCli:
     def __init__(self):
         self.sub_command = {}
         self.parser = CommandParser(
-            prog="dbframework",
+            prog="oframework",
             usage="""
         oframework [global options] <subcommand> <args>
         """,
@@ -342,7 +342,7 @@ class OneFlowFrameworkCli:
     def _result(
         run: Run, filter_result=[ResultEnum.failed, ResultEnum.error], json=False
     ):
-        result = OneFlowFrameworkCli._print_table(run, filter_result, json)
+        result = ProjectOneflowFrameworkCli._print_table(run, filter_result, json)
         if json:
             run_result = {
                 "checks": len(run.checks),
@@ -415,7 +415,7 @@ class OneFlowFrameworkCli:
             if args.only_fail:
                 filter_result = [ResultEnum.error, ResultEnum.failed]
 
-            result = OneFlowFrameworkCli._result(
+            result = ProjectOneflowFrameworkCli._result(
                 validation_run, filter_result=filter_result, json=args.json
             )
             if args.json:
@@ -448,7 +448,7 @@ class OneFlowFrameworkCli:
                 console.print(exception.message)
                 sys.exit(-1)
         DEFAULT_STATE_FILE = os.path.join(
-            tempfile.gettempdir(), ".oneflow", "terraform.tfstate"
+            tempfile.gettempdir(), ".projectoneflow", "terraform.tfstate"
         )
         deploy_backend_config = None
         backend_config = environment.OF_TF_BACKEND_CONFIG
@@ -538,7 +538,7 @@ class OneFlowFrameworkCli:
                 sys.exit(-1)
 
         if validation_run.result not in [ResultEnum.passed, ResultEnum.warning]:
-            result = OneFlowFrameworkCli._result(validation_run, json=args.json)
+            result = ProjectOneflowFrameworkCli._result(validation_run, json=args.json)
             if args.json:
                 return result
         else:
@@ -653,7 +653,7 @@ class OneFlowFrameworkCli:
                 console.print(exception.message)
                 sys.exit(-1)
         DEFAULT_STATE_FILE = os.path.join(
-            tempfile.gettempdir(), ".oneflow", "terraform.tfstate"
+            tempfile.gettempdir(), ".projectoneflow", "terraform.tfstate"
         )
         deploy_backend_config = None
         backend_config = environment.OF_TF_BACKEND_CONFIG
@@ -743,7 +743,7 @@ class OneFlowFrameworkCli:
                 sys.exit(-1)
 
         if validation_run.result not in [ResultEnum.passed, ResultEnum.warning]:
-            result = OneFlowFrameworkCli._result(validation_run, json=args.json)
+            result = ProjectOneflowFrameworkCli._result(validation_run, json=args.json)
             if args.json:
                 return result
         else:
@@ -863,14 +863,14 @@ class OneFlowFrameworkCli:
         run_id = uuid.uuid1().hex
         DEFAULT_STATE_FILE = os.path.join(
             tempfile.gettempdir(),
-            ".oneflow",
+            ".projectoneflow",
             "run",
             run_id,
             "terraform.tfstate",
         )
         DEFAULT_BUILD_DIR = os.path.join(
             tempfile.gettempdir(),
-            ".oneflow",
+            ".projectoneflow",
             "run",
             "build",
             run_id,
@@ -886,7 +886,7 @@ class OneFlowFrameworkCli:
         )
 
         environment.OF_PRESETTING_NAME_PREFIX = (
-            f"[{args.environment} oneflow_run:{run_id}]"
+            f"[{args.environment} projectoneflow_run:{run_id}]"
         )
         environment.OF_PRESETTING_TAGS = {"TEST_RUN": "true"}
         environment.OF_MODE_RUN_PIPELINE_STATE_PREFIX = (
@@ -906,7 +906,7 @@ class OneFlowFrameworkCli:
         validation_run = contract.validate()
 
         if validation_run.result not in [ResultEnum.passed, ResultEnum.warning]:
-            OneFlowFrameworkCli._result(validation_run)
+            ProjectOneflowFrameworkCli._result(validation_run)
         else:
             if args.environment != EnvTypes.local.value:
                 deploy_strategy = contract.get_deploy_strategy()
@@ -1047,7 +1047,7 @@ class OneFlowFrameworkCli:
 
     def execute(self):
         """
-        This is the method which parses and executes the oneflow framework method
+        This is the method which parses and executes the projectoneflow framework method
         """
         args = self.parser.parse_args()
         if args.command is None:
@@ -1064,7 +1064,7 @@ class OneFlowFrameworkCli:
 
 def main():
     """This is the main"""
-    data_flow_parser = OneFlowFrameworkCli()
+    data_flow_parser = ProjectOneflowFrameworkCli()
     data_flow_parser.execute()
 
 

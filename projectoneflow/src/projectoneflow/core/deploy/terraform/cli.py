@@ -3,8 +3,8 @@
 import argparse
 import json
 import colorlog.escape_codes
-from oneflow.core.cli import CliGroup
-from oneflow.core.schemas.deploy import (
+from projectoneflow.core.cli import CliGroup
+from projectoneflow.core.schemas.deploy import (
     SparkPipelineConfig,
     PipelineTaskTypes,
     PipelineTypes,
@@ -17,7 +17,7 @@ from cdktf import App
 import os
 import subprocess
 import tempfile
-from oneflow.core.deploy.terraform import TerraformComponent
+from projectoneflow.core.deploy.terraform import TerraformComponent
 
 
 class TerraformDeployCliGroup(CliGroup):
@@ -41,7 +41,7 @@ class TerraformDeployCliGroup(CliGroup):
         """This method initializes the spark command"""
 
         create_parser = self.sub_parser.add_parser(
-            prog="oneflow deploy terraform create",
+            prog="projectoneflow deploy terraform create",
             name="create",
             help="Executes the terraform pipeline deployment task in target spark/databricks environment",
         )
@@ -86,7 +86,7 @@ class TerraformDeployCliGroup(CliGroup):
             help="file path to where the plan output written as json output",
         )
         validate_parser = self.sub_parser.add_parser(
-            prog="oneflow deploy terraform validate",
+            prog="projectoneflow deploy terraform validate",
             name="validate",
             help="Checks/Validates the terraform pipeline configuration",
         )

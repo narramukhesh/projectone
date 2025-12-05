@@ -1,4 +1,4 @@
-from oneflow.core.sources import SparkSource
+from projectoneflow.core.sources import SparkSource
 from typing import Optional
 from pydantic import Field
 

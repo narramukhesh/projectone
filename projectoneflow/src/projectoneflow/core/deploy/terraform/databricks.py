@@ -28,7 +28,7 @@ from cdktf_cdktf_provider_databricks.sql_table import (
 from cdktf_cdktf_provider_databricks.data_databricks_node_type import (
     DataDatabricksNodeType,
 )
-from oneflow.core.schemas.deploy import (
+from projectoneflow.core.schemas.deploy import (
     DatabricksDeployConfig,
     SparkPipelineDeloyConfig,
     PipelineArtifactsDeployConfig,
@@ -39,8 +39,8 @@ from oneflow.core.schemas.deploy import (
 )
 from typing import List, Union
 from functools import partial
-from oneflow.core.exception.deploy import PipelineTaskDependencyError
-from oneflow.core.schemas.data_objects import (
+from projectoneflow.core.exception.deploy import PipelineTaskDependencyError
+from projectoneflow.core.schemas.data_objects import (
     DataObject,
     Schema as SchemaObject,
     Table as TableObject,
@@ -48,7 +48,7 @@ from oneflow.core.schemas.data_objects import (
     View as ViewObject,
 )
 import json
-from oneflow.core.utils import replace_special_symbols
+from projectoneflow.core.utils import replace_special_symbols
 
 
 class DatabricksStack:
@@ -607,7 +607,7 @@ class DatabricksStack:
                         #     "task_configuration": json.dumps(task.to_json()),
                         #     "task_type": "spark",
                         # },
-                        package_name="oneflow",
+                        package_name="projectoneflow",
                     ),
                     library=[lib.get_library for lib in task.extra_libraries],
                     job_cluster_key=(

@@ -1,7 +1,7 @@
-from oneflow.core.cli import CliGroup
+from projectoneflow.core.cli import CliGroup
 import argparse
-from oneflow.core.task.spark.cli import SparkTaskCliGroup
-from oneflow.core.cli import CommandParser
+from projectoneflow.core.task.spark.cli import SparkTaskCliGroup
+from projectoneflow.core.cli import CommandParser
 
 
 class TaskCliGroup(CliGroup):
@@ -47,9 +47,9 @@ class TaskCliGroup(CliGroup):
         """This method initializes the spark command"""
 
         spark_parser = self.sub_parser.add_parser(
-            prog="oneflow task spark",
+            prog="projectoneflow task spark",
             name="spark",
-            usage="""oneflow [global options] task  spark <args>
+            usage="""projectoneflow [global options] task  spark <args>
 
         This commands executes the spark execution in local/databricks environment
         """,

@@ -1,8 +1,8 @@
-from oneflow.core.schemas.data_objects import Table, Schema
-from oneflow.core.types import C
+from projectoneflow.core.schemas.data_objects import Table, Schema
+from projectoneflow.core.types import C
 from typing import Type, Tuple
 from pyspark.sql.types import _parse_datatype_string
-from oneflow.framework.validation import Run, Check, ResultEnum
+from projectoneflow.framework.validation import Run, Check, ResultEnum
 from pyspark.sql import SparkSession
 import sqlparse
 

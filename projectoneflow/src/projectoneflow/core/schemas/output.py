@@ -1,12 +1,12 @@
-from oneflow.core.schemas import ParentModel
+from projectoneflow.core.schemas import ParentModel
 from pydantic import Field, ConfigDict, model_validator
-from oneflow.core.schemas.sources import WriteOptions, Sink, SinkType, WriteType
-from oneflow.core.schemas.features import OutputFeatureOptions
+from projectoneflow.core.schemas.sources import WriteOptions, Sink, SinkType, WriteType
+from projectoneflow.core.schemas.features import OutputFeatureOptions
 from typing import Optional, Any, Union, List
-from oneflow.core.exception.validation import SparkOutputValidationError
-from oneflow.core.sources import SourceProxy
-from oneflow.core.utils import is_file_path_like, is_table_path_like
-from oneflow.core.schemas.event import SubscribedEvent
+from projectoneflow.core.exception.validation import SparkOutputValidationError
+from projectoneflow.core.sources import SourceProxy
+from projectoneflow.core.utils import is_file_path_like, is_table_path_like
+from projectoneflow.core.schemas.event import SubscribedEvent
 
 
 class SparkOutput(ParentModel):

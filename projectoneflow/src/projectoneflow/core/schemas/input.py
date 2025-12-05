@@ -1,17 +1,17 @@
-from oneflow.core.schemas import ParentModel
+from projectoneflow.core.schemas import ParentModel
 from pydantic import Field, ConfigDict, model_validator
-from oneflow.core.schemas.sources import (
+from projectoneflow.core.schemas.sources import (
     SparkSource,
     SparkSourceExtractType,
     SparkSourceType,
     ReadOptions,
 )
-from oneflow.core.schemas.features import InputFeatureOptions
+from projectoneflow.core.schemas.features import InputFeatureOptions
 from typing import Optional, Union, List
-from oneflow.core.exception.validation import SparkInputValidationError
-from oneflow.core.sources import SourceProxy
-from oneflow.core.utils import is_file_path_like, is_table_path_like
-from oneflow.core.schemas.event import SubscribedEvent
+from projectoneflow.core.exception.validation import SparkInputValidationError
+from projectoneflow.core.sources import SourceProxy
+from projectoneflow.core.utils import is_file_path_like, is_table_path_like
+from projectoneflow.core.schemas.event import SubscribedEvent
 
 
 class SparkInput(ParentModel):

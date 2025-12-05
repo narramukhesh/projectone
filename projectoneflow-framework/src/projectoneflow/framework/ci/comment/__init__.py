@@ -1,5 +1,5 @@
-from oneflow.core.schemas import ParentEnum
-from oneflow.framework.ci.comment.gitlab import GitLabClient
+from projectoneflow.core.schemas import ParentEnum
+from projectoneflow.framework.ci.comment.gitlab import GitLabClient
 
 
 class CIPlatformType(ParentEnum):

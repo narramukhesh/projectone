@@ -1,13 +1,13 @@
 from typing import Protocol, Type
-from oneflow.core.schemas.event import (
+from projectoneflow.core.schemas.event import (
     EventType,
     SubscribedEventConsumer,
     SubscribedEventConsumerEnum,
 )
-from oneflow.core.utils import post_webhook_api
-from oneflow.core.observability.logging import Logger
+from projectoneflow.core.utils import post_webhook_api
+from projectoneflow.core.observability.logging import Logger
 from functools import partial
-from oneflow.core.types import F
+from projectoneflow.core.types import F
 
 logger = Logger.get_logger(__name__)
 

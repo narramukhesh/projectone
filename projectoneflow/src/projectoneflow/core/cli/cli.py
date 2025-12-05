@@ -1,16 +1,16 @@
-import oneflow.core as core
-from oneflow.core.task.cli import TaskCliGroup
-from oneflow.core.deploy.cli import DeployCliGroup
-from oneflow.core.cli import CommandParser
+import projectoneflow.core as core
+from projectoneflow.core.task.cli import TaskCliGroup
+from projectoneflow.core.deploy.cli import DeployCliGroup
+from projectoneflow.core.cli import CommandParser
 
 
-class OneFlowCli:
+class ProjectOneflowCli:
     def __init__(self):
         self.sub_command = {}
         self.parser = CommandParser(
-            prog="oneflow",
+            prog="projectoneflow",
             usage="""
-        oneflow [global options] <subcommand> <args>
+        projectoneflow [global options] <subcommand> <args>
         """,
             description="""The available commands for executed are listed below.
         The primary workflow/functionality command needs to be given first, followed by
@@ -32,31 +32,31 @@ class OneFlowCli:
 
     def __initialize_task_command(self):
         task_parser = self.sub_parsers.add_parser(
-            prog="oneflow task",
+            prog="projectoneflow task",
             name="task",
             usage="""
-        oneflow [global options] task <args>
+        projectoneflow [global options] task <args>
 
         The available commands for executed are listed below.
         The sub-command needs to be given first, followed by
         workflow/functionality specific arguments
         """,
-            help="Execute the oneflow task in specific environment",
+            help="Execute the projectoneflow task in specific environment",
         )
         self.sub_command["task"] = TaskCliGroup(task_parser)
 
     def __initialize_deploy_command(self):
         pipeline_parser = self.sub_parsers.add_parser(
-            prog="oneflow deploy",
+            prog="projectoneflow deploy",
             name="deploy",
             usage="""
-        oneflow [global options] deploy <args>
+        projectoneflow [global options] deploy <args>
 
         The available commands for executed are listed below.
         The sub-command needs to be given first, followed by
         workflow/functionality specific arguments
         """,
-            help="Execute the oneflow deploy command where deloy the resources in specific environment",
+            help="Execute the projectoneflow deploy command where deloy the resources in specific environment",
         )
         self.sub_command["deploy"] = DeployCliGroup(pipeline_parser)
 
@@ -74,7 +74,7 @@ class OneFlowCli:
 
 def main():
     """This is the main"""
-    one_flow_parser = OneFlowCli()
+    one_flow_parser = ProjectOneflowCli()
     one_flow_parser.execute()
 
 

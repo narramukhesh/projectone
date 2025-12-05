@@ -1,10 +1,10 @@
 from cdktf import TerraformStack
 from constructs import Construct
-from oneflow.core.schemas.deploy import InfraStateBackendConfig, InfraStateBackendType
-from oneflow.core.schemas.deploy import DeployConfig
+from projectoneflow.core.schemas.deploy import InfraStateBackendConfig, InfraStateBackendType
+from projectoneflow.core.schemas.deploy import DeployConfig
 import importlib
 
-MODULE_NAME = "oneflow.core.deploy.terraform"
+MODULE_NAME = "projectoneflow.core.deploy.terraform"
 
 
 class TerraformComponent(TerraformStack):

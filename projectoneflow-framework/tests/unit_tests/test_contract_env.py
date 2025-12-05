@@ -1,4 +1,4 @@
-from oneflow.framework.contract.env import format_environment_variables
+from projectoneflow.framework.contract.env import format_environment_variables
 
 
 def test_format_environment_variables():

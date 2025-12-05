@@ -1,6 +1,6 @@
-from oneflow.core.schemas.input import SparkInput
-from oneflow.core.schemas.refresh import TaskRefreshTypes as SparkTaskRefreshTypes
-from oneflow.core.schemas.features import (
+from projectoneflow.core.schemas.input import SparkInput
+from projectoneflow.core.schemas.refresh import TaskRefreshTypes as SparkTaskRefreshTypes
+from projectoneflow.core.schemas.features import (
     FilterDataFeature,
     DropColumnsFeature,
     SelectColumnsFeature,
@@ -9,18 +9,18 @@ from oneflow.core.schemas.features import (
     ChangeFeature,
     PostTaskExecutionFeature,
 )
-from oneflow.core.exception.validation import ChangeDataFeatureTypeParseError
-from oneflow.core.schemas.state import ChangeDataCaptureState
-from oneflow.core.exception.validation import SchemaInferenceFromRegistryError
-from oneflow.core.schemas.event import SubscribedEventHandleEnum
-from oneflow.core.event import get_event_handler_function
-from oneflow.core.execution.spark_task.context import SparkTaskExecutionContext
+from projectoneflow.core.exception.validation import ChangeDataFeatureTypeParseError
+from projectoneflow.core.schemas.state import ChangeDataCaptureState
+from projectoneflow.core.exception.validation import SchemaInferenceFromRegistryError
+from projectoneflow.core.schemas.event import SubscribedEventHandleEnum
+from projectoneflow.core.event import get_event_handler_function
+from projectoneflow.core.execution.spark_task.context import SparkTaskExecutionContext
 import json
-from oneflow.core.observability.logging import Logger
+from projectoneflow.core.observability.logging import Logger
 from pyspark.sql import DataFrame
-from oneflow.core.types import F
+from projectoneflow.core.types import F
 from typing import Type, Any, cast
-from oneflow.core.execution.operator import Operator, execute_step
+from projectoneflow.core.execution.operator import Operator, execute_step
 from functools import partial
 
 logger = Logger.get_logger(__name__)
@@ -239,7 +239,7 @@ class InputOperator(Operator):
             this is the schema registry information to be included by the
 
         """
-        from oneflow.core.utils.spark import from_avro, from_json
+        from projectoneflow.core.utils.spark import from_avro, from_json
 
         logger.debug(
             f"Schema inference for input {self.config.name} with configuration {schema_registry_information}"

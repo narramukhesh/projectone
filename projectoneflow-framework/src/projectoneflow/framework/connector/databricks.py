@@ -1,8 +1,8 @@
 from databricks.sdk import WorkspaceClient
 from databricks.sdk.errors.platform import NotFound
-from oneflow.framework.contract.config import DatabricksServerDetails
-from oneflow.framework.contract.env import Environment
-from oneflow.framework.connector import Connector
+from projectoneflow.framework.contract.config import DatabricksServerDetails
+from projectoneflow.framework.contract.env import Environment
+from projectoneflow.framework.connector import Connector
 
 
 class DatabricksConnector(Connector):

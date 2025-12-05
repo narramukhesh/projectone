@@ -1,8 +1,8 @@
-from oneflow.core.event import Event, EndEvent, EventSubscription
-from oneflow.core.schemas.event import EventType
+from projectoneflow.core.event import Event, EndEvent, EventSubscription
+from projectoneflow.core.schemas.event import EventType
 import threading
 from queue import Queue
-from oneflow.core.observability.logging import Logger
+from projectoneflow.core.observability.logging import Logger
 
 logger = Logger.get_logger(__name__)
 

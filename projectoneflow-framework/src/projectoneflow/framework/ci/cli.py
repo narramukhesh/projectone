@@ -1,7 +1,7 @@
-from oneflow.core.cli import CommandParser, CliGroup
+from projectoneflow.core.cli import CommandParser, CliGroup
 import argparse
-from oneflow.framework.contract.env import EnvTypes
-from oneflow.framework.ci.comment import CIPlatformType, get_ci_client
+from projectoneflow.framework.contract.env import EnvTypes
+from projectoneflow.framework.ci.comment import CIPlatformType, get_ci_client
 import os
 import json
 import sys
@@ -172,13 +172,13 @@ class CICliGroup(CliGroup):
     @staticmethod
     def execute_validate_command(args):
         """This command executes the validates command"""
-        from oneflow.framework.cli.cli import OneFlowFrameworkCli
+        from projectoneflow.framework.cli.cli import ProjectOneflowFrameworkCli
 
         try:
             if len(args.project_folders) > 0:
                 comment_body = []
                 for project in args.project_folders:
-                    framework_cli = OneFlowFrameworkCli()
+                    framework_cli = ProjectOneflowFrameworkCli()
                     validate_args = Args()
                     validate_args["json"] = True
                     validate_args["select"] = None
@@ -220,7 +220,7 @@ class CICliGroup(CliGroup):
     @staticmethod
     def execute_prerelease_command(args):
         """This command executes the validates command"""
-        from oneflow.framework.cli.cli import OneFlowFrameworkCli
+        from projectoneflow.framework.cli.cli import ProjectOneflowFrameworkCli
 
         CHANGE_MAPPING = {
             "create": ":sparkles: **NEW OBJECT**",
@@ -231,7 +231,7 @@ class CICliGroup(CliGroup):
             if len(args.project_folders) > 0:
                 comment_body = []
                 for project in args.project_folders:
-                    framework_cli = OneFlowFrameworkCli()
+                    framework_cli = ProjectOneflowFrameworkCli()
                     project_folder = os.path.basename(project)
                     prerelease_args = Args()
                     prerelease_args["json"] = True
@@ -303,12 +303,12 @@ class CICliGroup(CliGroup):
         """This command executes the validates command"""
 
         # There is a problem with circular dependency, so need to check it in future
-        from oneflow.framework.cli.cli import OneFlowFrameworkCli
+        from projectoneflow.framework.cli.cli import ProjectOneflowFrameworkCli
 
         try:
             if len(args.project_folders) > 0:
                 for project in args.project_folders:
-                    framework_cli = OneFlowFrameworkCli()
+                    framework_cli = ProjectOneflowFrameworkCli()
                     project_folder = os.path.basename(project)
                     release_args = Args()
                     release_args["json"] = True

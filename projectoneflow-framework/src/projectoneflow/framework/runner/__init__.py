@@ -1,4 +1,4 @@
-from oneflow.core.schemas import ParentModel
+from projectoneflow.core.schemas import ParentModel
 from typing import Protocol, runtime_checkable
 
 

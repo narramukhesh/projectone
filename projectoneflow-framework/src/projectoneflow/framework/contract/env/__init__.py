@@ -1,15 +1,15 @@
 from typing import Dict, Optional, Any
 from pydantic import Field, model_validator
-from oneflow.core.schemas import ParentEnum, ParentModel
-from oneflow.core.utils.patterns import Singleton
-from oneflow.framework.exception.contract import EnvironmentParseError
+from projectoneflow.core.schemas import ParentEnum, ParentModel
+from projectoneflow.core.utils.patterns import Singleton
+from projectoneflow.framework.exception.contract import EnvironmentParseError
 import os
 import re
 import json, uuid
 import tempfile
-import oneflow.core as core
-from oneflow.framework.utils import is_windows
-from oneflow.framework.contract.strategy import DeployStrategyTypes
+import projectoneflow.core as core
+from projectoneflow.framework.utils import is_windows
+from projectoneflow.framework.contract.strategy import DeployStrategyTypes
 
 
 class EnvTypes(ParentEnum):
@@ -116,7 +116,7 @@ class Environment(metaclass=Singleton):
                 "OF_DEPLOY_CORE_PACKAGE_TYPE", "pypi"
             )
             self.OF_DEPLOY_CORE_PACKAGE_PATH = os.environ.get(
-                "OF_DEPLOY_CORE_PACKAGE_PATH", "oneflow"
+                "OF_DEPLOY_CORE_PACKAGE_PATH", "projectoneflow"
             )
             self.OF_DEPLOY_CORE_PACKAGE_REPOSITORY = os.environ.get(
                 "OF_DEPLOY_CORE_PACKAGE_REPOSITORY", core.PROJECT_PACKAGE_URL
@@ -142,7 +142,7 @@ class Environment(metaclass=Singleton):
                 "OF_MODE_DEPLOY_TEMP_LOCAL_STATE_FILE",
                 os.path.join(
                     tempfile.gettempdir(),
-                    ".oneflow",
+                    ".projectoneflow",
                     "deploy",
                     uuid.uuid1().hex,
                     "terraform.tfstate",

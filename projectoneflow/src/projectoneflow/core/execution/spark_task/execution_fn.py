@@ -1,7 +1,7 @@
-from oneflow.core.types import F
+from projectoneflow.core.types import F
 from typing import Type, Tuple, Any, Dict
 import inspect
-from oneflow.core.exception.execution import ExecutionFuncInitializeError
+from projectoneflow.core.exception.execution import ExecutionFuncInitializeError
 import importlib
 
 

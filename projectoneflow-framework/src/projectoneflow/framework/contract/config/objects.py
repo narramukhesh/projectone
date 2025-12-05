@@ -1,7 +1,7 @@
 from typing import ClassVar, Optional, List
 from abc import ABC
 import pathlib
-from oneflow.framework.contract.env import (
+from projectoneflow.framework.contract.env import (
     EnvTypes,
     ContractElementEnvironmentSchema,
     Environment,
@@ -11,8 +11,8 @@ from oneflow.framework.contract.env import (
     EnvironmentMode,
 )
 import re
-from oneflow.core.schemas import cast
-from oneflow.core.schemas.deploy import (
+from projectoneflow.core.schemas import cast
+from projectoneflow.core.schemas.deploy import (
     PipelineTaskTypes,
     PipelineTypes,
     DeployConfig,
@@ -23,15 +23,15 @@ from oneflow.core.schemas.deploy import (
     DataObjectDeployConfig,
     SparkPipelineDeloyConfig,
 )
-from oneflow.framework.validation.data_objects import TableValidation, SchemaValidation
-from oneflow.core.schemas.data_objects import DataObject
-from oneflow.framework.validation import Run, Check, ResultEnum
-from oneflow.framework.validation.pipeline import (
+from projectoneflow.framework.validation.data_objects import TableValidation, SchemaValidation
+from projectoneflow.core.schemas.data_objects import DataObject
+from projectoneflow.framework.validation import Run, Check, ResultEnum
+from projectoneflow.framework.validation.pipeline import (
     REQUIRED_PIPELINE_FOLDERS,
     PipelineValidation,
 )
-from oneflow.core.deploy.terraform.databricks import DatabricksStack
-from oneflow.framework.contract.config import (
+from projectoneflow.core.deploy.terraform.databricks import DatabricksStack
+from projectoneflow.framework.contract.config import (
     TableObjectSchema,
     TableObjectSchemaType,
     VolumeObjectSchema,
@@ -46,12 +46,12 @@ from oneflow.framework.contract.config import (
     EXTERNAL_FILES_VOLUME_NAME,
     EXTERNAL_PARSE_PATTERN,
 )
-from oneflow.framework.exception.contract import (
+from projectoneflow.framework.exception.contract import (
     ProjectContractDatasetNotExists,
     ProjectContractPipelineNotExists,
 )
-from oneflow.core.utils import read_json_file
-from oneflow.core.utils import NamespaceDict as SimpleNamespace
+from projectoneflow.core.utils import read_json_file
+from projectoneflow.core.utils import NamespaceDict as SimpleNamespace
 from typing import Protocol, runtime_checkable
 import os
 

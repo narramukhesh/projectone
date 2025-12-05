@@ -1,24 +1,24 @@
-from oneflow.core.types import CT, RO, SI, SO, C
+from projectoneflow.core.types import CT, RO, SI, SO, C
 from typing import Type, Any
 import re
-from oneflow.core.schemas.sources import (
+from projectoneflow.core.schemas.sources import (
     SparkSourceExtractType,
     SinkType,
     WriteOptions,
     ReadOptions,
     SparkSourceType,
 )
-from oneflow.core.schemas.result import OutputResult
-from oneflow.core.schemas.refresh import TaskRefreshTypes as SparkTaskRefreshTypes
+from projectoneflow.core.schemas.result import OutputResult
+from projectoneflow.core.schemas.refresh import TaskRefreshTypes as SparkTaskRefreshTypes
 import inspect
-from oneflow.core.exception.sources import (
+from projectoneflow.core.exception.sources import (
     SourceModuleNotImplemented,
     WriteFunctionNotImplementedError,
 )
 from abc import ABC, abstractmethod
 from functools import partial
 from importlib import import_module
-from oneflow.core.observability.logging import Logger
+from projectoneflow.core.observability.logging import Logger
 from pyspark.sql import SparkSession, DataFrame
 
 logger = Logger.get_logger(__name__)
@@ -227,7 +227,7 @@ class SourceProxy:
     @staticmethod
     def get_source_module(name):
         """This method initiates the correct source module object"""
-        root_source_module = "oneflow.core.sources.{}"
+        root_source_module = "projectoneflow.core.sources.{}"
         if name == "delta":
             root_source_module = root_source_module.format("delta_source")
         elif name in ["parquet", "csv", "json", "excel"]:

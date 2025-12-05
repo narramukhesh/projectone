@@ -1,6 +1,6 @@
-from oneflow.core.state import TaskState
+from projectoneflow.core.state import TaskState
 from pyspark.sql import SparkSession
-from oneflow.core.observability.logging import Logger
+from projectoneflow.core.observability.logging import Logger
 from typing import Any
 import json
 from pathlib import Path
